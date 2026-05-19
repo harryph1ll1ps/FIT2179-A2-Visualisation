@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Placeholder map specification for the assignment.",
+  "width": "container",
+  "height": 380,
+  "data": {
+    "values": []
+  },
+  "mark": {
+    "type": "geoshape",
+    "fill": "#cbd5e1",
+    "stroke": "#475569"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "title": "Starter Map Placeholder",
+  "usermeta": {
+    "notes": [
+      "Replace data.values with a GeoJSON or TopoJSON source later.",
+      "This project needs at least one map in the final assignment, so this file is a starter placeholder.",
+      "For an Australian-focused story, you could later connect this to Australia state, suburb, or electorate boundaries."
+    ]
+  }
+}

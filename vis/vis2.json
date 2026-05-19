@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "The Most Highly Funded Unicorn Companies",
+
+  "width": 700,
+  "height": 500,
+
+  "data": {
+    "url": "../data/Unicorn_Companies.csv"
+  },
+
+  "transform": [
+    {
+      "calculate": "replace(datum.Funding, '$', '')",
+      "as": "FundingClean"
+    },
+    {
+      "calculate": "replace(datum.FundingClean, 'B', '')",
+      "as": "FundingBillions"
+    },
+    {
+      "calculate": "toNumber(datum.FundingBillions)",
+      "as": "FundingNum"
+    },
+
+    {
+      "filter": "isValid(datum.FundingNum)"
+    },
+
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+
+      "sort": [
+        {
+          "field": "FundingNum",
+          "order": "descending"
+        }
+      ]
+    },
+
+    {
+      "filter": "datum.rank <= 15"
+    }
+  ],
+
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 4
+  },
+
+  "encoding": {
+    "y": {
+      "field": "Company",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null
+    },
+
+    "x": {
+      "field": "FundingNum",
+      "type": "quantitative",
+      "title": "Funding Raised (Billions USD)"
+    },
+
+    "color": {
+      "field": "Industry",
+      "type": "nominal",
+      "legend": {
+        "title": "Industry"
+      }
+    },
+
+    "tooltip": [
+      {"field": "Company"},
+      {"field": "Industry"},
+      {"field": "Funding"},
+      {"field": "Valuation"}
+    ]
+  }
+}

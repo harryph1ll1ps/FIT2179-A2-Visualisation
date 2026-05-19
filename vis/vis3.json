@@ -1,0 +1,143 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Grid of industries colored by total aggregate funding received.",
+  "title": "Total Unicorn Funding by Industry",
+  "width": 700,
+  "height": 500,
+  "data": {
+    "url": "../data/Unicorn_Companies.csv"
+  },
+  "transform": [
+    {
+      "calculate": "replace(datum.Funding, '$', '')",
+      "as": "FundingText"
+    },
+    {
+      "calculate": "replace(replace(datum.FundingText, 'B', ''), 'M', '')",
+      "as": "FundingNumberText"
+    },
+    {
+      "calculate": "indexof(datum.Funding, 'B') > -1 ? toNumber(datum.FundingNumberText) * 1000 : indexof(datum.Funding, 'M') > -1 ? toNumber(datum.FundingNumberText) : null",
+      "as": "FundingMillions"
+    },
+    {
+      "filter": "isValid(datum.FundingMillions)"
+    },
+    {
+      "calculate": "datum.Industry == 'Artificial intelligence' ? 'Artificial Intelligence' : datum.Industry",
+      "as": "IndustryClean"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "FundingMillions",
+          "as": "TotalFundingMillions"
+        }
+      ],
+      "groupby": ["IndustryClean"]
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "TotalFundingMillions",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "calculate": "(datum.rank - 1) % 4",
+      "as": "gridColumn"
+    },
+    {
+      "calculate": "floor((datum.rank - 1) / 4)",
+      "as": "gridRow"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 8,
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "gridColumn",
+          "type": "ordinal",
+          "axis": null
+        },
+        "y": {
+          "field": "gridRow",
+          "type": "ordinal",
+          "axis": null
+        },
+        "color": {
+          "field": "TotalFundingMillions",
+          "type": "quantitative",
+          "title": "Total Funding (Millions USD)",
+          "scale": {
+            "scheme": "blues"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "IndustryClean",
+            "type": "nominal",
+            "title": "Industry"
+          },
+          {
+            "field": "TotalFundingMillions",
+            "type": "quantitative",
+            "title": "Total Funding (Millions USD)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "lineBreak": " "
+      },
+      "encoding": {
+        "x": {
+          "field": "gridColumn",
+          "type": "ordinal",
+          "axis": null
+        },
+        "y": {
+          "field": "gridRow",
+          "type": "ordinal",
+          "axis": null
+        },
+        "text": {
+          "field": "IndustryClean",
+          "type": "nominal"
+        },
+        "color": {
+          "value": "#102a43"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "grid": false
+    }
+  }
+}

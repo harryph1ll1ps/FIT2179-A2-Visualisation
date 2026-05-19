@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "The Rise of Global Unicorn Companies",
+
+  "width": 700,
+  "height": 450,
+
+  "data": {
+    "url": "../data/Unicorn_Companies.csv"
+  },
+
+  "transform": [
+    {
+      "calculate": "replace(datum.Valuation, '$', '')",
+      "as": "ValuationClean"
+    },
+    {
+      "calculate": "replace(datum.ValuationClean, 'B', '')",
+      "as": "ValuationBillions"
+    },
+    {
+      "calculate": "toNumber(datum.ValuationBillions)",
+      "as": "ValuationNum"
+    },
+    {
+      "calculate": "replace(datum.Funding, '$', '')",
+      "as": "FundingClean"
+    },
+    {
+      "calculate": "replace(datum.FundingClean, 'B', '')",
+      "as": "FundingBillions"
+    },
+    {
+      "calculate": "toNumber(datum.FundingBillions)",
+      "as": "FundingNum"
+    }
+  ],
+
+  "mark": {
+    "type": "circle",
+    "tooltip": true,
+    "opacity": 0.7
+  },
+
+  "encoding": {
+    "x": {
+      "field": "Year Founded",
+      "type": "quantitative",
+      "title": "Year Founded",
+
+      "scale": {
+        "zero": false
+      },
+
+      "axis": {
+        "tickMinStep": 1
+      }
+    },
+
+    "y": {
+      "field": "ValuationNum",
+      "type": "quantitative",
+      "title": "Valuation (Billions USD)"
+    },
+
+    "size": {
+      "field": "FundingNum",
+      "type": "quantitative",
+      "title": "Funding (Billions USD)"
+    },
+
+    "color": {
+      "field": "Industry",
+      "type": "nominal"
+    },
+
+    "tooltip": [
+      {"field": "Company"},
+      {"field": "Country"},
+      {"field": "Industry"},
+      {"field": "Valuation"},
+      {"field": "Funding"}
+    ]
+  }
+}
