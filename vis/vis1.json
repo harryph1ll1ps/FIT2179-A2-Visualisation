@@ -1,8 +1,68 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Deaths per TWh by energy source — placeholder, to be built.",
-  "width": "container",
+  "width": 780,
   "height": 300,
-  "data": { "values": [] },
-  "mark": "bar"
+  "data": {
+    "url": "data/rates_death_from_energy_production_per_twh.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"calculate": "toNumber(datum['Deaths per TWh of electricity production'])", "as": "deaths"},
+    {"calculate": "0.01", "as": "stem_start"},
+    {
+      "calculate": "indexof(['Brown coal','Coal','Oil','Gas'], datum.Entity) >= 0 ? 'Fossil fuel' : datum.Entity === 'Nuclear' ? 'Nuclear' : 'Renewable'",
+      "as": "category"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Entity",
+      "type": "nominal",
+      "sort": {"field": "deaths", "order": "descending"},
+      "title": null,
+      "axis": {"labelFontSize": 13}
+    },
+    "color": {"value": "#111111"}
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "strokeWidth": 2, "opacity": 0.4},
+      "encoding": {
+        "x": {
+          "field": "stem_start",
+          "type": "quantitative",
+          "scale": {"type": "log", "domain": [0.01, 50]},
+          "title": "Deaths per TWh of electricity produced (log scale)",
+          "axis": {"grid": true, "gridColor": "#eee", "values": [0.01, 0.1, 1, 10]}
+        },
+        "x2": {"field": "deaths"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 120},
+      "encoding": {
+        "x": {
+          "field": "deaths",
+          "type": "quantitative",
+          "scale": {"type": "log", "domain": [0.01, 50]}
+        },
+        "tooltip": [
+          {"field": "Entity", "type": "nominal", "title": "Source"},
+          {"field": "deaths", "type": "quantitative", "title": "Deaths per TWh", "format": ".3f"},
+          {"field": "category", "type": "nominal", "title": "Category"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11},
+      "encoding": {
+        "x": {
+          "field": "deaths",
+          "type": "quantitative",
+          "scale": {"type": "log", "domain": [0.01, 50]}
+        },
+        "text": {"field": "deaths", "format": ".3f"}
+      }
+    }
+  ]
 }
