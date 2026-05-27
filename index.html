@@ -3,99 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIT2179 Data Visualisation 2 Assignment</title>
+  <title>Nuclear: The World's Most Controversial Energy Source</title>
 
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-  <link rel="stylesheet" href="style.css?v=20260519">
+  <link rel="stylesheet" href="style.css?v=20260526">
 </head>
 <body>
   <main class="page-container">
     <section class="hero">
       <p class="eyebrow">FIT2179 Data Visualisation 2</p>
-      <h1>Unicorns Across The Globe</h1>
+      <h1>Nuclear: The World's Most Controversial Energy Source</h1>
       <p class="lead">
-        A deep dive into the worlds greatest companies, and how Australia competes.
+        Feared by many, misunderstood by most — nuclear power generates more electricity with fewer deaths than almost any other energy source. So why does the world remain so divided?
       </p>
-      <p class="meta">Created by: Harry Phillips</p>
-      <p class="meta">Date: 18/05/2026</p>
+      <p class="meta">Created by: Harry Phillips &nbsp;|&nbsp; Date: 26/05/2026</p>
     </section>
 
     <section class="content-section">
       <h2>Introduction</h2>
       <p>
-        Intro sentence...
+        Nuclear energy sits at the centre of one of the defining debates of our time. On one side: a dense, reliable, low-carbon power source capable of running at over 90% capacity day and night. On the other: the spectre of Chernobyl, Fukushima, and a waste problem with no clean end.
       </p>
       <p>
-        Intro sentence...
+        This visualisation cuts through the fear and the hype to look at what the data actually says — about how deadly nuclear really is, how much power it produces, what it costs to fuel, and how it compares to the alternatives. Australia, notably, operates zero nuclear plants. Is that the right call?
       </p>
     </section>
 
+    <!-- VIS 6 — DOT MAP (moved first) -->
     <section class="content-section">
       <div class="text-block">
-        <h2>Visualisation 1</h2>
+        <h2>The Global Power Map — Who Builds What, and Where</h2>
         <p>
-          Placeholder sentence...
+          Every dot is a power plant. Nuclear plants cluster tightly in North America, Western Europe, and East Asia — while Australia has a dense spread of solar, gas, and coal, but zero nuclear.
         </p>
+      </div>
+      <div class="chart-card" id="vis6"></div>
+    </section>
+
+    <!-- VIS 1 -->
+    <section class="content-section">
+      <div class="text-block">
+        <h2>The Safety Paradox — Deaths per TWh by Energy Source</h2>
         <p>
-          Placeholder sentence...
+          PLAN: Dataset — rates_death_from_energy_production_per_twh.csv (9 rows, 2021 snapshot). Idiom — horizontal lollipop / dot plot on a LOG-SCALE x-axis. Each energy source is a row on the y-axis, sorted from most to least deadly (Coal at top, Solar at bottom). A thin horizontal line (the stem) runs from zero to a filled circle (the dot) positioned at the death rate. Colour encodes source category: fossil fuels in warm amber/red, renewables in green, nuclear in a distinct blue. The log scale is essential — the range spans nearly four orders of magnitude (Coal 24.62 → Nuclear 0.03 → Solar 0.019), making a linear scale unreadable. The purpose is to serve as the centrepiece "hook" of the page: nuclear's death rate of 0.03 per TWh sits at the safe end alongside solar and wind, while coal (24.62) and oil (18.43) dwarf everything else. The viewer's instinctive fear of nuclear is immediately challenged before the rest of the story unfolds.
         </p>
       </div>
       <div class="chart-card" id="vis1"></div>
     </section>
 
+    <!-- VIS 2 -->
     <section class="content-section">
       <div class="text-block">
-        <h2>Visualisation 2</h2>
+        <h2>50 Years of US Nuclear — The Build, the Freeze, and the Silence</h2>
         <p>
-          Placeholder sentence...
+          PLAN: Dataset — nuclear_energy_overview_eia.csv (monthly, 1973–2024). Idiom — annotated area chart. The x-axis is time (year), the y-axis is net summer capacity in GW (the "Nuclear Generating Units, Net Summer Capacity" column), and the area fill shows the physical scale of the US nuclear fleet over five decades. Four vertical rule annotations mark the events that shaped the story: the 1973 OPEC oil crisis (initial nuclear expansion), Three Mile Island 1979 (first chilling effect), Chernobyl 1986 (global panic, construction halts), and Fukushima 2011 (wave of plant retirements). Each rule is labelled with a short text mark. The chart reveals a dramatic build-out from ~14 GW in 1973 to a peak of ~100 GW in the mid-1990s — then a flat plateau as no new plants were approved. The purpose is to show that American nuclear history is a story of political paralysis, not technical failure: the fleet runs to this day at the same capacity it reached thirty years ago.
         </p>
       </div>
       <div class="chart-card" id="vis2"></div>
     </section>
 
+    <!-- VIS 3 -->
     <section class="content-section">
       <div class="text-block">
-        <h2>Visualisation 3</h2>
+        <h2>Getting Better Without Getting Bigger — The Capacity Factor Story</h2>
         <p>
-          This grid compares industries by total funding received. Darker blue squares show industries
-          with higher aggregate funding across unicorn companies.
+          PLAN: Dataset — nuclear_energy_overview_eia.csv (monthly, 1973–2024). Idiom — line chart with annual average, overlaid with a shaded band (min–max per year) to show seasonal variation. The x-axis is year, the y-axis is capacity factor (%). A horizontal reference line is drawn at 90% as a threshold annotation. The data shows a clear upward trend: in the 1970s the average capacity factor hovered around 55–60%; by the 2010s it consistently exceeds 90%. This is computed by aggregating the monthly "Nuclear Generating Units, Capacity Factor" column into annual averages. The purpose is to tell the "silent improvement" story: even though America stopped building new nuclear plants after 1996, operators quietly mastered the technology — squeezing dramatically more output from the same physical infrastructure. This makes nuclear's contribution to the grid even more significant than raw capacity numbers suggest.
         </p>
       </div>
       <div class="chart-card" id="vis3"></div>
     </section>
 
+    <!-- VIS 4 -->
     <section class="content-section">
       <div class="text-block">
-        <h2>Visualisation 4</h2>
+        <h2>The Price of Uranium — Boom, Bust, and Renaissance</h2>
         <p>
-          This time series shows how the number of unicorn companies founded each year has changed since 2000.
+          PLAN: Dataset — uranium_purchase_price_us.csv (annual, 2002–2023). Idiom — line chart with area fill below the line, plus point marks at each year and text/rule annotations at key events. The x-axis is delivery year, the y-axis is the weighted-average total purchase price ($/lb). Key annotations: the 2007–2008 spike to ~$45/lb (driven by flooding at Cigar Lake mine in Canada combined with a speculative investor surge), the steady decline post-Fukushima 2011 as reactor shutdowns in Germany and Japan reduced demand, the trough around 2020–2021 (~$33/lb), and the recovery to $43.80 by 2023 as energy security concerns and small modular reactor interest renewed demand. The purpose is to show that uranium pricing is deeply entangled with geopolitics and public perception — prices fall when fear spooks governments into closing plants, and rise when energy security forces a rethink. Notably, even at peak prices, uranium's energy density makes it cheaper per unit of electricity than almost any fossil fuel.
         </p>
       </div>
       <div class="chart-card" id="vis4"></div>
     </section>
 
+    <!-- VIS 5 -->
     <section class="content-section">
       <div class="text-block">
-        <h2>Map Visualisation</h2>
+        <h2>Nuclear's Place in the World Grid — Stable Output, Shrinking Share</h2>
         <p>
-          Placeholder sentence...
+          PLAN: Dataset — world_electricity_generation.csv (monthly, 2019–2024). Idiom — small multiples: two vertically stacked line/area charts sharing a common x-axis (month–year). Top panel: area chart of absolute nuclear generation in TWh (the "nuclear_generation_twh" column) — shows the seasonal rhythm (peaks in winter, dips in summer) and the broadly stable absolute output around 210–250 TWh per month. Bottom panel: line chart of nuclear's share of total world electricity generation (the "share_of_generation_pct" column) with a horizontal dashed reference line drawn at 10% — visually anchoring the plateau. The two panels together tell a nuanced story: nuclear isn't generating less electricity, but it is generating a declining share as solar and wind grow faster. The plateau annotation makes the key takeaway unmissable. The purpose is to show that nuclear's contribution is not collapsing — it is simply being outpaced by the renewable buildout, raising the question of whether that is intentional policy or benign neglect.
         </p>
       </div>
-      <div class="chart-card" id="map"></div>
+      <div class="chart-card" id="vis5"></div>
+    </section>
+
+    <!-- VIS 7 — STACKED BAR (placeholder) -->
+    <section class="content-section">
+      <div class="text-block">
+        <h2>Energy Strategies Compared — Which Countries Chose Nuclear?</h2>
+        <p>
+          PLAN: Dataset — power_plant_database_global.csv, aggregated by country and primary_fuel. Idiom — 100% normalised horizontal stacked bar chart.
+        </p>
+      </div>
+      <div class="chart-card" id="vis_stacked"></div>
+    </section>
+
+    <!-- VIS 8 -->
+    <section class="content-section">
+      <div class="text-block">
+        <h2>The Events That Changed History — Nuclear Accidents in Context</h2>
+        <p>
+          PLAN: Dataset — hardcoded inline values (small dataset, ~6 rows) sourced from IAEA public records and Our World in Data. Columns: plant name, country, year, INES severity level (1–7 international nuclear event scale), confirmed direct deaths, and a short description. Key events: Kyshtym Soviet Union 1957 (INES 6, ~200 estimated deaths), Three Mile Island USA 1979 (INES 5, 0 confirmed deaths), Chernobyl Ukraine 1986 (INES 7, 31 direct + ~15 later thyroid cancer deaths), Tokaimura Japan 1999 (INES 4, 2 deaths), Fukushima Japan 2011 (INES 7, 1 confirmed radiation death). Idiom — bubble chart / scatter plot. The x-axis is year, the y-axis is INES severity level (ordinal, 1 at bottom, 7 at top), and the circle size encodes confirmed deaths (with a minimum size so zero-death events are still visible). Colour encodes INES level using a sequential red scheme (darker = more severe). Each bubble is labelled with the plant name. A note explains that INES 7 (the maximum) has only ever been assigned twice — both to Chernobyl and Fukushima — yet their confirmed death tolls are a fraction of what a single year of coal pollution causes. The purpose is to close the loop with vis 1: this is where nuclear's fear comes from, but the data — even at its worst — tells a different story than the headlines suggest.
+        </p>
+      </div>
+      <div class="chart-card" id="vis7"></div>
     </section>
 
     <footer class="footer">
       <h2>Conclusion</h2>
       <p>
-        Placeholder sentence...
+        The data makes a compelling case that nuclear energy's public image is far more dangerous than the technology itself. Its safety record, reliability, and low-carbon output make it a serious candidate for any nation's energy future — including Australia's.
       </p>
-      <p class="meta">Sources: ...</p>
+      <p class="meta">
+        Sources: US Energy Information Administration (EIA) &nbsp;|&nbsp; World Resources Institute — Global Power Plant Database &nbsp;|&nbsp; Our World in Data &nbsp;|&nbsp; Nuclear Energy Institute (NEI) &nbsp;|&nbsp; International Atomic Energy Agency (IAEA)
+      </p>
     </footer>
   </main>
 
-  <script src="script.js?v=20260519"></script>
+  <script src="script.js?v=20260526"></script>
 </body>
 </html>

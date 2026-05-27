@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Nuclear share of US electricity generation over time — placeholder, to be built.",
+  "description": "World nuclear generation TWh + share % — small multiples, to be built.",
   "width": "container",
-  "height": 300,
+  "height": 200,
   "data": { "values": [] },
   "mark": "area"
 }

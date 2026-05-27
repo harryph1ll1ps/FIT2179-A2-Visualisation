@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Deaths per TWh by energy source — placeholder, to be built.",
+  "description": "Nuclear accidents bubble chart (hardcoded IAEA data) — to be built.",
   "width": "container",
   "height": 300,
   "data": { "values": [] },
-  "mark": "bar"
+  "mark": "circle"
 }

@@ -1,61 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Line chart showing the number of unicorn companies founded each year from 2000 onwards.",
-  "title": "Number of Unicorns Founded Each Year Since 2000",
-  "width": 700,
-  "height": 400,
-  "data": {
-    "url": "../data/Unicorn_Companies.csv"
-  },
-  "transform": [
-    {
-      "calculate": "toNumber(datum['Year Founded'])",
-      "as": "FoundedYear"
-    },
-    {
-      "filter": "isValid(datum.FoundedYear) && datum.FoundedYear >= 2000"
-    },
-    {
-      "aggregate": [
-        {
-          "op": "count",
-          "as": "UnicornCount"
-        }
-      ],
-      "groupby": ["FoundedYear"]
-    }
-  ],
-  "mark": {
-    "type": "line",
-    "point": true,
-    "strokeWidth": 3,
-    "color": "#2563eb"
-  },
-  "encoding": {
-    "x": {
-      "field": "FoundedYear",
-      "type": "quantitative",
-      "title": "Year Founded",
-      "axis": {
-        "tickMinStep": 1
-      }
-    },
-    "y": {
-      "field": "UnicornCount",
-      "type": "quantitative",
-      "title": "Number of Unicorn Companies"
-    },
-    "tooltip": [
-      {
-        "field": "FoundedYear",
-        "type": "quantitative",
-        "title": "Year"
-      },
-      {
-        "field": "UnicornCount",
-        "type": "quantitative",
-        "title": "Unicorns Founded"
-      }
-    ]
-  }
+  "description": "US uranium purchase prices over time — placeholder, to be built.",
+  "width": "container",
+  "height": 300,
+  "data": { "values": [] },
+  "mark": "line"
 }
