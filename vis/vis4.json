@@ -1,8 +1,66 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "US uranium purchase prices over time — placeholder, to be built.",
-  "width": "container",
-  "height": 300,
-  "data": { "values": [] },
-  "mark": "line"
+  "width": 880,
+  "height": 320,
+  "data": {
+    "url": "data/uranium_purchase_price_us.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"calculate": "toNumber(datum['Total purchased'])", "as": "price"},
+    {"calculate": "toNumber(datum['Delivery year'])", "as": "year"},
+    {
+      "window": [{"op": "lag", "field": "price", "as": "prev_price"}],
+      "sort": [{"field": "year", "order": "ascending"}]
+    },
+    {"calculate": "datum.prev_price == null ? 0 : datum.prev_price", "as": "base"},
+    {"calculate": "datum.price - datum.base", "as": "change"},
+    {
+      "calculate": "(datum.prev_price == null || datum.year === 2023) ? 'total' : (datum.change >= 0 ? 'increase' : 'decrease')",
+      "as": "direction"
+    },
+    {
+      "calculate": "(datum.prev_price == null || datum.year === 2023) ? 0 : (abs(datum.change) < 0.5 ? (datum.change >= 0 ? datum.price - 0.5 : datum.price + 0.5) : datum.base)",
+      "as": "vis_base"
+    }
+  ],
+  "mark": {"type": "bar", "width": {"band": 0.7}},
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {"labelAngle": -45}
+    },
+    "y": {
+      "field": "vis_base",
+      "type": "quantitative",
+      "title": "Price ($/lb U₃O₈)",
+      "scale": {"zero": true, "domain": [0, 60]},
+      "axis": {
+        "values": [0, 10, 20, 30, 40, 50, 60],
+        "grid": true,
+        "gridColor": "#eee"
+      }
+    },
+    "y2": {"field": "price"},
+    "color": {
+      "field": "direction",
+      "type": "nominal",
+      "scale": {
+        "domain": ["total", "increase", "decrease"],
+        "range": ["#888888", "#27AE60", "#E74C3C"]
+      },
+      "legend": {
+        "title": null,
+        "labelExpr": "datum.label === 'total' ? 'Total' : datum.label === 'increase' ? 'Year-on-year increase' : 'Year-on-year decrease'",
+        "orient": "top-left"
+      }
+    },
+    "tooltip": [
+      {"field": "year", "type": "ordinal", "title": "Year"},
+      {"field": "price", "type": "quantitative", "title": "Price ($/lb)", "format": ".2f"},
+      {"field": "change", "type": "quantitative", "title": "Change ($/lb)", "format": "+.2f"}
+    ]
+  }
 }
