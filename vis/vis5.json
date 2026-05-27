@@ -1,8 +1,115 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "World nuclear generation TWh + share % — small multiples, to be built.",
-  "width": "container",
-  "height": 200,
-  "data": { "values": [] },
-  "mark": "area"
+  "spacing": 8,
+  "vconcat": [
+    {
+      "width": 880,
+      "height": 160,
+      "data": {
+        "url": "data/world_electricity_generation.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {"calculate": "datetime(toNumber(datum.Year), toNumber(datum.Month) - 1)", "as": "date"},
+        {"calculate": "toNumber(datum.nuclear_generation_twh)", "as": "twh"}
+      ],
+      "mark": {"type": "line", "color": "#E84393", "strokeWidth": 1.8},
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": null,
+          "axis": {
+            "labels": false,
+            "ticks": false,
+            "domain": false,
+            "grid": true,
+            "gridColor": "#eee"
+          }
+        },
+        "y": {
+          "field": "twh",
+          "type": "quantitative",
+          "title": "Generation (TWh)",
+          "scale": {"zero": false},
+          "axis": {"grid": true, "gridColor": "#eee", "titleColor": "#E84393"}
+        },
+        "tooltip": [
+          {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
+          {"field": "twh", "type": "quantitative", "title": "Generation (TWh)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "width": 880,
+      "height": 160,
+      "data": {
+        "url": "data/world_electricity_generation.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {"calculate": "datetime(toNumber(datum.Year), toNumber(datum.Month) - 1)", "as": "date"},
+        {"calculate": "toNumber(datum.share_of_generation_pct)", "as": "pct"}
+      ],
+      "layer": [
+        {
+          "mark": {"type": "line", "color": "#0072B2", "strokeWidth": 1.8},
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal",
+              "title": null,
+              "axis": {
+                "format": "%Y",
+                "tickCount": {"interval": "year", "step": 1},
+                "grid": true,
+                "gridColor": "#eee"
+              }
+            },
+            "y": {
+              "field": "pct",
+              "type": "quantitative",
+              "title": "Share of world generation (%)",
+              "scale": {"zero": false},
+              "axis": {"grid": true, "gridColor": "#eee", "titleColor": "#0072B2"}
+            },
+            "tooltip": [
+              {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
+              {"field": "pct", "type": "quantitative", "title": "Share (%)", "format": ".2f"}
+            ]
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {"x": "2019-01-01", "y": 11.1},
+              {"x": "2024-03-01", "y": 9.14}
+            ]
+          },
+          "mark": {"type": "line", "color": "#333", "strokeWidth": 1.5, "strokeDash": [5, 3]},
+          "encoding": {
+            "x": {"field": "x", "type": "temporal"},
+            "y": {"field": "y", "type": "quantitative", "scale": {"zero": false}}
+          }
+        },
+        {
+          "data": {
+            "values": [{"x": "2024-03-01", "y": 9.14}]
+          },
+          "mark": {
+            "type": "point",
+            "shape": "triangle",
+            "filled": true,
+            "color": "#333",
+            "size": 120,
+            "angle": 97
+          },
+          "encoding": {
+            "x": {"field": "x", "type": "temporal"},
+            "y": {"field": "y", "type": "quantitative", "scale": {"zero": false}}
+          }
+        }
+      ]
+    }
+  ]
 }
