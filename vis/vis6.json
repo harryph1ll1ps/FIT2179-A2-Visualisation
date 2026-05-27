@@ -59,7 +59,7 @@
         {"type": "formula", "expr": "toNumber(datum.latitude)",  "as": "lat"},
         {
           "type": "formula",
-          "expr": "indexof(['Nuclear','Coal','Gas','Solar','Wind','Hydro'], datum.primary_fuel) >= 0 ? datum.primary_fuel : 'Other'",
+          "expr": "indexof(['Nuclear','Solar','Hydro','Wind','Gas'], datum.primary_fuel) >= 0 ? datum.primary_fuel : 'Other'",
           "as": "fuel_category"
         },
         {"type": "formula", "expr": "datum.fuel_category === 'Nuclear' ? 1 : 0", "as": "nuclear_order"},
@@ -73,8 +73,8 @@
   "scales": [{
     "name": "color",
     "type": "ordinal",
-    "domain": ["Nuclear", "Coal", "Gas", "Solar", "Wind", "Hydro", "Other"],
-    "range":  ["#e84393", "#4a4a4a", "#a29bfe", "#fdcb6e", "#55efc4", "#0984e3", "#b2bec3"]
+    "domain": ["Nuclear", "Solar", "Hydro", "Wind", "Gas", "Other"],
+    "range":  ["#E84393", "#E69F00", "#56B4E9", "#009E73", "#8B5E3C", "#666666"]
   }],
 
   "legends": [{
@@ -110,7 +110,7 @@
           "opacity": {"value": 0.65},
           "fill":    {"scale": "color", "field": "fuel_category"},
           "tooltip": {
-            "signal": "{'Plant': datum.name, 'Country': datum.country_long, 'Capacity (MW)': datum.capacity_mw, 'Fuel': datum.primary_fuel}"
+            "signal": "{'Plant': datum.name, 'Country': datum.country_long, 'Fuel': datum.fuel_category}"
           }
         }
       }

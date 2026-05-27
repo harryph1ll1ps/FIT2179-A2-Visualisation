@@ -1,0 +1,174 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 900,
+  "height": 460,
+  "padding": {"top": 10, "right": 10, "bottom": 10, "left": 10},
+  "autosize": "none",
+
+  "projections": [{
+    "name": "projection",
+    "type": "naturalEarth1",
+    "scale": 165,
+    "translate": [450, 230]
+  }],
+
+  "data": [
+    {
+      "name": "world",
+      "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+      "format": {"type": "topojson", "feature": "countries"}
+    },
+    {
+      "name": "iso_map",
+      "values": [
+        {"alpha3": "ARG", "numeric": 32,  "name": "Argentina"},
+        {"alpha3": "ARM", "numeric": 51,  "name": "Armenia"},
+        {"alpha3": "BLR", "numeric": 112, "name": "Belarus"},
+        {"alpha3": "BEL", "numeric": 56,  "name": "Belgium"},
+        {"alpha3": "BRA", "numeric": 76,  "name": "Brazil"},
+        {"alpha3": "BGR", "numeric": 100, "name": "Bulgaria"},
+        {"alpha3": "CAN", "numeric": 124, "name": "Canada"},
+        {"alpha3": "CHN", "numeric": 156, "name": "China"},
+        {"alpha3": "TWN", "numeric": 158, "name": "Taiwan"},
+        {"alpha3": "CZE", "numeric": 203, "name": "Czech Republic"},
+        {"alpha3": "FIN", "numeric": 246, "name": "Finland"},
+        {"alpha3": "FRA", "numeric": 250, "name": "France"},
+        {"alpha3": "DEU", "numeric": 276, "name": "Germany"},
+        {"alpha3": "HUN", "numeric": 348, "name": "Hungary"},
+        {"alpha3": "IND", "numeric": 356, "name": "India"},
+        {"alpha3": "IRN", "numeric": 364, "name": "Iran"},
+        {"alpha3": "JPN", "numeric": 392, "name": "Japan"},
+        {"alpha3": "KOR", "numeric": 410, "name": "South Korea"},
+        {"alpha3": "MEX", "numeric": 484, "name": "Mexico"},
+        {"alpha3": "NLD", "numeric": 528, "name": "Netherlands"},
+        {"alpha3": "PAK", "numeric": 586, "name": "Pakistan"},
+        {"alpha3": "ROU", "numeric": 642, "name": "Romania"},
+        {"alpha3": "RUS", "numeric": 643, "name": "Russia"},
+        {"alpha3": "SVK", "numeric": 703, "name": "Slovakia"},
+        {"alpha3": "SVN", "numeric": 705, "name": "Slovenia"},
+        {"alpha3": "ZAF", "numeric": 710, "name": "South Africa"},
+        {"alpha3": "ESP", "numeric": 724, "name": "Spain"},
+        {"alpha3": "SWE", "numeric": 752, "name": "Sweden"},
+        {"alpha3": "CHE", "numeric": 756, "name": "Switzerland"},
+        {"alpha3": "UKR", "numeric": 804, "name": "Ukraine"},
+        {"alpha3": "ARE", "numeric": 784, "name": "United Arab Emirates"},
+        {"alpha3": "GBR", "numeric": 826, "name": "United Kingdom"},
+        {"alpha3": "USA", "numeric": 840, "name": "United States"}
+      ]
+    },
+    {
+      "name": "plants_raw",
+      "url": "data/power_plant_database_global.csv",
+      "format": {"type": "csv"},
+      "transform": [
+        {"type": "formula", "expr": "toNumber(datum.capacity_mw)", "as": "cap_num"}
+      ]
+    },
+    {
+      "name": "total_capacity",
+      "source": "plants_raw",
+      "transform": [{
+        "type": "aggregate",
+        "groupby": ["country"],
+        "fields": ["cap_num"],
+        "ops": ["sum"],
+        "as": ["total_mw"]
+      }]
+    },
+    {
+      "name": "nuclear_capacity",
+      "source": "plants_raw",
+      "transform": [
+        {"type": "filter", "expr": "datum.primary_fuel === 'Nuclear'"},
+        {
+          "type": "aggregate",
+          "groupby": ["country"],
+          "fields": ["cap_num"],
+          "ops": ["sum"],
+          "as": ["nuclear_mw"]
+        }
+      ]
+    },
+    {
+      "name": "nuclear_pct",
+      "source": "nuclear_capacity",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "total_capacity",
+          "key": "country",
+          "fields": ["country"],
+          "values": ["total_mw"],
+          "as": ["total_country_mw"]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.total_country_mw > 0 ? datum.nuclear_mw / datum.total_country_mw * 100 : 0",
+          "as": "pct"
+        }
+      ]
+    },
+    {
+      "name": "nuclear_by_numeric",
+      "source": "nuclear_pct",
+      "transform": [{
+        "type": "lookup",
+        "from": "iso_map",
+        "key": "alpha3",
+        "fields": ["country"],
+        "values": ["numeric", "name"],
+        "as": ["numeric_id", "country_name"]
+      }]
+    },
+    {
+      "name": "countries_choropleth",
+      "source": "world",
+      "transform": [{
+        "type": "lookup",
+        "from": "nuclear_by_numeric",
+        "key": "numeric_id",
+        "fields": ["id"],
+        "values": ["pct", "nuclear_mw", "country_name"],
+        "as": ["pct", "nuclear_mw", "country_name"]
+      }]
+    }
+  ],
+
+  "scales": [{
+    "name": "color",
+    "type": "sqrt",
+    "domain": [0, 100],
+    "range": {"scheme": "reds"}
+  }],
+
+  "legends": [{
+    "fill": "color",
+    "title": ["Nuclear share (%)", "√ scale"],
+    "orient": "bottom-left",
+    "type": "gradient",
+    "gradientLength": 200,
+    "format": ".0f"
+  }],
+
+  "marks": [{
+    "type": "shape",
+    "from": {"data": "countries_choropleth"},
+    "encode": {
+      "update": {
+        "fill": {
+          "signal": "datum.pct != null && datum.pct > 0 ? scale('color', datum.pct) : '#e8e8e8'"
+        },
+        "stroke":      {"value": "#ffffff"},
+        "strokeWidth": {"value": 0.5},
+        "tooltip": {
+          "signal": "datum.country_name ? {'Country': datum.country_name, 'Nuclear share': format(datum.pct, '.1f') + '%', 'Nuclear share (√-scaled)': format(sqrt(datum.pct / 100) * 100, '.1f') + '%'} : 'No nuclear capacity'"
+        }
+      },
+      "hover": {
+        "stroke":      {"value": "#555"},
+        "strokeWidth": {"value": 1.5}
+      }
+    },
+    "transform": [{"type": "geoshape", "projection": "projection"}]
+  }]
+}
