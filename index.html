@@ -32,7 +32,7 @@
       </p>
     </section>
 
-    <!-- VIS 6 — DOT MAP (moved first) -->
+    <!-- POWER PLANT MAP -->
     <section class="content-section">
       <div class="text-block">
         <h2>Where are the power plants?</h2>
@@ -40,10 +40,10 @@
           Every dot is a power plant. Zoom around to see the global distribution of energy infrastructure.
         </p>
       </div>
-      <div class="chart-card" id="vis6"></div>
+      <div class="chart-card" id="powerplant-map"></div>
     </section>
 
-    <!-- VIS 5 — Dual line -->
+    <!-- WORLD GENERATION -->
     <section class="content-section">
       <div class="text-block">
         <h2>Global Nuclear Generation (Monthly)</h2>
@@ -51,10 +51,10 @@
           Global nuclear output has barely moved since 2019, hovering between 200–250 TWh per month. But its share of total world electricity has quietly fallen below 10% as solar and wind scale up faster. Nuclear isn't in decline — it's being lapped.
         </p>
       </div>
-      <div class="chart-card" id="vis5"></div>
+      <div class="chart-card" id="world-generation"></div>
     </section>
 
-    <!-- VIS 4 -->
+    <!-- URANIUM PRICE -->
     <section class="content-section">
       <div class="text-block">
         <h2>The Price of Uranium — Boom, Bust, and Renaissance</h2>
@@ -62,10 +62,10 @@
           PLAN: Dataset — uranium_purchase_price_us.csv (annual, 2002–2023). Idiom — line chart with area fill below the line, plus point marks at each year and text/rule annotations at key events. The x-axis is delivery year, the y-axis is the weighted-average total purchase price ($/lb). Key annotations: the 2007–2008 spike to ~$45/lb (driven by flooding at Cigar Lake mine in Canada combined with a speculative investor surge), the steady decline post-Fukushima 2011 as reactor shutdowns in Germany and Japan reduced demand, the trough around 2020–2021 (~$33/lb), and the recovery to $43.80 by 2023 as energy security concerns and small modular reactor interest renewed demand. The purpose is to show that uranium pricing is deeply entangled with geopolitics and public perception — prices fall when fear spooks governments into closing plants, and rise when energy security forces a rethink. Notably, even at peak prices, uranium's energy density makes it cheaper per unit of electricity than almost any fossil fuel.
         </p>
       </div>
-      <div class="chart-card" id="vis4"></div>
+      <div class="chart-card" id="uranium-price"></div>
     </section>
 
-    <!-- VIS 1 -->
+    <!-- DEATHS LOLLIPOP -->
     <section class="content-section">
       <div class="text-block">
         <h2>The Safety Paradox — Deaths per TWh by Energy Source</h2>
@@ -73,21 +73,10 @@
           PLAN: Dataset — rates_death_from_energy_production_per_twh.csv (9 rows, 2021 snapshot). Idiom — horizontal lollipop / dot plot on a LOG-SCALE x-axis. Each energy source is a row on the y-axis, sorted from most to least deadly (Coal at top, Solar at bottom). A thin horizontal line (the stem) runs from zero to a filled circle (the dot) positioned at the death rate. Colour encodes source category: fossil fuels in warm amber/red, renewables in green, nuclear in a distinct blue. The log scale is essential — the range spans nearly four orders of magnitude (Coal 24.62 → Nuclear 0.03 → Solar 0.019), making a linear scale unreadable. The purpose is to serve as the centrepiece "hook" of the page: nuclear's death rate of 0.03 per TWh sits at the safe end alongside solar and wind, while coal (24.62) and oil (18.43) dwarf everything else. The viewer's instinctive fear of nuclear is immediately challenged before the rest of the story unfolds.
         </p>
       </div>
-      <div class="chart-card" id="vis1"></div>
+      <div class="chart-card" id="deaths-lollipop"></div>
     </section>
 
-    <!-- VIS 8 — DOT MATRIX (coal vs nuclear) -->
-    <section class="content-section">
-      <div class="text-block">
-        <h2>Coal vs Nuclear — By the Dots</h2>
-        <p>
-          Each dot represents 0.25 deaths per TWh of electricity generated. Coal fills 98 out of 100 — nuclear fills zero. Its death rate of 0.03 per TWh is so low it doesn't even register on the same scale.
-        </p>
-      </div>
-      <div class="chart-card" id="vis8"></div>
-    </section>
-
-    <!-- VIS 7 — TIMELINE -->
+<!-- INCIDENTS TIMELINE -->
     <section class="content-section">
       <div class="text-block">
         <h2>Every Major Nuclear Incident Since 1952</h2>
@@ -95,19 +84,19 @@
           The INES scale rates nuclear events from 1 (anomaly) to 7 (major accident). Only two events have ever reached the maximum — Chernobyl (1986) and Fukushima (2011). Circle size and colour both reflect severity. Hover for details.
         </p>
       </div>
-      <div class="chart-card" id="vis7"></div>
+      <div class="chart-card" id="incidents-timeline"></div>
     </section>
 
-    <!-- CHOROPLETH — Nuclear capacity by country -->
+    <!-- CHOROPLETH -->
     <section class="content-section">
       <div class="text-block">
         <h2>Some countries are leaning into nuclear, others wait</h2>
-        <p>Nuclear is playing an increasing role within the energy mix in many countries, providing a stable and low-carbon power source.</p>
+        <p>Nuclear is playing an increasing role within the energy mix in many countries, providing a stable and low-carbon power source. Data: share-electricity-nuclear.csv — Our World in Data (2025).</p>
       </div>
-      <div class="chart-card" id="vis-choro"></div>
+      <div class="chart-card" id="choropleth"></div>
     </section>
 
-    <!-- VIS 2 -->
+    <!-- US CAPACITY -->
     <section class="content-section">
       <div class="text-block">
         <h2>50 Years of US Nuclear — The Build, the Freeze, and the Silence</h2>
@@ -115,10 +104,10 @@
           PLAN: Dataset — nuclear_energy_overview_eia.csv (monthly, 1973–2024). Idiom — annotated area chart. The x-axis is time (year), the y-axis is net summer capacity in GW (the "Nuclear Generating Units, Net Summer Capacity" column), and the area fill shows the physical scale of the US nuclear fleet over five decades. Four vertical rule annotations mark the events that shaped the story: the 1973 OPEC oil crisis (initial nuclear expansion), Three Mile Island 1979 (first chilling effect), Chernobyl 1986 (global panic, construction halts), and Fukushima 2011 (wave of plant retirements). Each rule is labelled with a short text mark. The chart reveals a dramatic build-out from ~14 GW in 1973 to a peak of ~100 GW in the mid-1990s — then a flat plateau as no new plants were approved. The purpose is to show that American nuclear history is a story of political paralysis, not technical failure: the fleet runs to this day at the same capacity it reached thirty years ago.
         </p>
       </div>
-      <div class="chart-card" id="vis2"></div>
+      <div class="chart-card" id="us-capacity"></div>
     </section>
 
-    <!-- VIS 3 -->
+    <!-- CAPACITY FACTOR -->
     <section class="content-section">
       <div class="text-block">
         <h2>Getting Better Without Getting Bigger — The Capacity Factor Story</h2>
@@ -126,10 +115,10 @@
           PLAN: Dataset — nuclear_energy_overview_eia.csv (monthly, 1973–2024). Idiom — line chart with annual average, overlaid with a shaded band (min–max per year) to show seasonal variation. The x-axis is year, the y-axis is capacity factor (%). A horizontal reference line is drawn at 90% as a threshold annotation. The data shows a clear upward trend: in the 1970s the average capacity factor hovered around 55–60%; by the 2010s it consistently exceeds 90%. This is computed by aggregating the monthly "Nuclear Generating Units, Capacity Factor" column into annual averages. The purpose is to tell the "silent improvement" story: even though America stopped building new nuclear plants after 1996, operators quietly mastered the technology — squeezing dramatically more output from the same physical infrastructure. This makes nuclear's contribution to the grid even more significant than raw capacity numbers suggest.
         </p>
       </div>
-      <div class="chart-card" id="vis3"></div>
+      <div class="chart-card" id="capacity-factor"></div>
     </section>
 
-    <!-- VIS 7 — STACKED BAR (placeholder) -->
+    <!-- ENERGY STRATEGIES -->
     <section class="content-section">
       <div class="text-block">
         <h2>Energy Strategies Compared — Which Countries Chose Nuclear?</h2>
@@ -137,7 +126,7 @@
           PLAN: Dataset — power_plant_database_global.csv, aggregated by country and primary_fuel. Idiom — 100% normalised horizontal stacked bar chart.
         </p>
       </div>
-      <div class="chart-card" id="vis_stacked"></div>
+      <div class="chart-card" id="energy-strategies"></div>
     </section>
 
     <footer class="footer">

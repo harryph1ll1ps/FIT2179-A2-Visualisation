@@ -1,9 +1,8 @@
-vegaEmbed("#vis1", "vis/vis1.json", { actions: false });
-vegaEmbed("#vis2", "vis/vis2.json", { actions: false });
-vegaEmbed("#vis3", "vis/vis3.json", { actions: false });
-vegaEmbed("#vis4", "vis/vis4.json", { actions: false });
-vegaEmbed("#vis5", "vis/vis5.json", { actions: false });
-vegaEmbed("#vis6",     "vis/vis6.json",     { actions: false });
-vegaEmbed("#vis-choro", "vis/vis_choro.json", { actions: false });
-vegaEmbed("#vis7", "vis/vis7.json", { actions: false });
-vegaEmbed("#vis8", "vis/vis8.json", { actions: false });
+vegaEmbed("#powerplant-map",    "vis/vis-powerplant-map.json",    { actions: false });
+vegaEmbed("#world-generation",   "vis/vis-world-generation.json",   { actions: false });
+vegaEmbed("#uranium-price",      "vis/vis-uranium-price.json",      { actions: false });
+vegaEmbed("#deaths-lollipop",    "vis/vis-deaths-lollipop.json",    { actions: false });
+vegaEmbed("#incidents-timeline", "vis/vis-incidents-timeline.json", { actions: false });
+vegaEmbed("#choropleth",         "vis/vis-choropleth.json",         { actions: false });
+vegaEmbed("#us-capacity",        "vis/vis-us-capacity.json",        { actions: false });
+vegaEmbed("#capacity-factor",    "vis/vis-capacity-factor.json",    { actions: false });

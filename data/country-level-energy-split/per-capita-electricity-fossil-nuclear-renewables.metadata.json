@@ -1,0 +1,88 @@
+{
+  "chart": {
+    "title": "Per capita electricity generation from fossil fuels, nuclear and renewables",
+    "subtitle": "Per capita electricity generation from fossil fuels (coal, gas, and oil), nuclear, and renewables (solar, wind, hydropower, bioenergy, geothermal, wave, and tidal).",
+    "citation": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024)",
+    "originalChartUrl": "https://ourworldindata.org/grapher/per-capita-electricity-fossil-nuclear-renewables?country=OWID_WRL~CHN~IND~USA~GBR~FRA~AUS~SWE~ZAF~JPN~BRA&v=1&csvType=filtered&useColumnShortNames=false",
+    "selection": [
+      "World",
+      "China",
+      "India",
+      "United States",
+      "United Kingdom",
+      "France",
+      "Australia",
+      "Sweden",
+      "South Africa",
+      "Japan",
+      "Brazil",
+      "Germany"
+    ]
+  },
+  "columns": {
+    "Fossil fuel electricity per capita - kWh (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)": {
+      "titleShort": "Electricity generation from fossil fuels per person",
+      "titleLong": "Electricity generation from fossil fuels per person - Ember",
+      "descriptionShort": "Electricity generation from coal, oil, and gas, measured in kilowatt-hours per person.",
+      "descriptionKey": [
+        "Per capita figures are calculated by dividing total values by the population of the country or region. Population data is constructed by Our World in Data, based on [various sources](https://ourworldindata.org/grapher/population)."
+      ],
+      "descriptionProcessing": "- Electricity data from 2000 onwards (and from 1990 onwards for European countries, including Turkey) comes from Ember. Earlier data comes from the Energy Institute.",
+      "shortUnit": "kWh",
+      "unit": "kilowatt-hours",
+      "timespan": "1985-2025",
+      "type": "Numeric",
+      "owidVariableId": 1228056,
+      "shortName": "per_capita_fossil_generation__kwh_chart_per_capita_electricity_fossil_nuclear_renewables",
+      "lastUpdated": "2026-04-24",
+      "nextUpdate": "2027-04-24",
+      "citationShort": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024) – with major processing by Our World in Data",
+      "citationLong": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024) – with major processing by Our World in Data. “Electricity generation from fossil fuels per person – Ember” [dataset]. Ember, “Yearly Electricity Data Europe”; Ember, “Yearly Electricity Data”; Energy Institute, “Statistical Review of World Energy”; Various sources, “Population” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/1228056.metadata.json"
+    },
+    "Nuclear electricity per capita - kWh (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)": {
+      "titleShort": "Electricity generation from nuclear power per person",
+      "titleLong": "Electricity generation from nuclear power per person",
+      "descriptionShort": "Measured in kilowatt-hours per person.",
+      "descriptionKey": [
+        "Per capita figures are calculated by dividing total values by the population of the country or region. Population data is constructed by Our World in Data, based on [various sources](https://ourworldindata.org/grapher/population)."
+      ],
+      "descriptionProcessing": "- Electricity data from 2000 onwards (and from 1990 onwards for European countries, including Turkey) comes from Ember. Earlier data comes from the Energy Institute.",
+      "shortUnit": "kWh",
+      "unit": "kilowatt-hours",
+      "timespan": "1985-2025",
+      "type": "Numeric",
+      "owidVariableId": 1228057,
+      "shortName": "per_capita_nuclear_generation__kwh_chart_per_capita_electricity_fossil_nuclear_renewables",
+      "lastUpdated": "2026-04-24",
+      "nextUpdate": "2027-04-24",
+      "citationShort": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024) – with major processing by Our World in Data",
+      "citationLong": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024) – with major processing by Our World in Data. “Electricity generation from nuclear power per person” [dataset]. Ember, “Yearly Electricity Data Europe”; Ember, “Yearly Electricity Data”; Energy Institute, “Statistical Review of World Energy”; Various sources, “Population” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/1228057.metadata.json"
+    },
+    "Renewable electricity per capita - kWh (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)": {
+      "titleShort": "Electricity generation from renewables per person",
+      "titleLong": "Electricity generation from renewables per person - Ember",
+      "descriptionShort": "Measured in kilowatt-hours per person.",
+      "descriptionKey": [
+        "Per capita figures are calculated by dividing total values by the population of the country or region. Population data is constructed by Our World in Data, based on [various sources](https://ourworldindata.org/grapher/population)."
+      ],
+      "descriptionProcessing": "- Electricity data from 2000 onwards (and from 1990 onwards for European countries, including Turkey) comes from Ember. Earlier data comes from the Energy Institute.",
+      "shortUnit": "kWh",
+      "unit": "kilowatt-hours",
+      "timespan": "1985-2025",
+      "type": "Numeric",
+      "owidVariableId": 1228058,
+      "shortName": "per_capita_renewable_generation__kwh_chart_per_capita_electricity_fossil_nuclear_renewables",
+      "lastUpdated": "2026-04-24",
+      "nextUpdate": "2027-04-24",
+      "citationShort": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024) – with major processing by Our World in Data",
+      "citationLong": "Ember (2026); Energy Institute - Statistical Review of World Energy (2025); Population based on various sources (2024) – with major processing by Our World in Data. “Electricity generation from renewables per person – Ember” [dataset]. Ember, “Yearly Electricity Data Europe”; Ember, “Yearly Electricity Data”; Energy Institute, “Statistical Review of World Energy”; Various sources, “Population” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/1228058.metadata.json"
+    }
+  },
+  "dateDownloaded": "2026-05-28",
+  "activeFilters": {
+    "country": "OWID_WRL~CHN~IND~USA~GBR~FRA~AUS~SWE~ZAF~JPN~BRA"
+  }
+}

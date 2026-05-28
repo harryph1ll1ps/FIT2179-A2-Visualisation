@@ -1,0 +1,110 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 460,
+  "config": {"view": {"stroke": null}},
+  "projection": {"type": "naturalEarth1"},
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#f7f8fa"}
+    },
+    {
+      "data": {"graticule": {"step": [30, 30]}},
+      "mark": {"type": "geoshape", "filled": false, "stroke": "#bcd", "strokeWidth": 0.3}
+    },
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#e0e0e0", "stroke": "white", "strokeWidth": 0.5}
+    },
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "values": [
+                {"id": 32,  "code": "ARG"},
+                {"id": 51,  "code": "ARM"},
+                {"id": 56,  "code": "BEL"},
+                {"id": 76,  "code": "BRA"},
+                {"id": 100, "code": "BGR"},
+                {"id": 112, "code": "BLR"},
+                {"id": 124, "code": "CAN"},
+                {"id": 156, "code": "CHN"},
+                {"id": 158, "code": "TWN"},
+                {"id": 203, "code": "CZE"},
+                {"id": 246, "code": "FIN"},
+                {"id": 250, "code": "FRA"},
+                {"id": 348, "code": "HUN"},
+                {"id": 356, "code": "IND"},
+                {"id": 364, "code": "IRN"},
+                {"id": 392, "code": "JPN"},
+                {"id": 410, "code": "KOR"},
+                {"id": 484, "code": "MEX"},
+                {"id": 528, "code": "NLD"},
+                {"id": 586, "code": "PAK"},
+                {"id": 642, "code": "ROU"},
+                {"id": 643, "code": "RUS"},
+                {"id": 703, "code": "SVK"},
+                {"id": 705, "code": "SVN"},
+                {"id": 710, "code": "ZAF"},
+                {"id": 724, "code": "ESP"},
+                {"id": 752, "code": "SWE"},
+                {"id": 756, "code": "CHE"},
+                {"id": 784, "code": "ARE"},
+                {"id": 804, "code": "UKR"},
+                {"id": 826, "code": "GBR"},
+                {"id": 840, "code": "USA"}
+              ]
+            },
+            "key": "id",
+            "fields": ["code"]
+          }
+        },
+        {
+          "lookup": "code",
+          "from": {
+            "data": {
+              "url": "data/share-electricity-nuclear.filtered/share-electricity-nuclear.csv",
+              "format": {"type": "csv"}
+            },
+            "key": "Code",
+            "fields": ["Nuclear", "Entity"]
+          }
+        },
+        {"calculate": "toNumber(datum.Nuclear)", "as": "NuclearPct"},
+        {"filter": "datum.NuclearPct > 0"}
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.5},
+      "encoding": {
+        "color": {
+          "field": "NuclearPct",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt",
+            "scheme": "reds",
+            "domain": [0, 70]
+          },
+          "legend": {
+            "title": "Nuclear share of electricity (%)",
+            "orient": "bottom-left",
+            "gradientLength": 200,
+            "format": ".0f"
+          }
+        },
+        "tooltip": [
+          {"field": "Entity", "title": "Country"},
+          {"field": "NuclearPct", "title": "Nuclear share (%)", "format": ".1f"}
+        ]
+      }
+    }
+  ]
+}
