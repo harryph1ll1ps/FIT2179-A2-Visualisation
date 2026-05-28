@@ -11,34 +11,92 @@
       },
       "transform": [
         {"calculate": "datetime(toNumber(datum.Year), toNumber(datum.Month) - 1)", "as": "date"},
-        {"calculate": "toNumber(datum.nuclear_generation_twh)", "as": "twh"}
+        {"calculate": "toNumber(datum.nuclear_generation_twh)", "as": "twh"},
+        {"joinaggregate": [{"op": "mean", "field": "twh", "as": "mean_twh"}]},
+        {"calculate": "datum.twh >= datum.mean_twh ? datum.twh : datum.mean_twh", "as": "above"},
+        {"calculate": "datum.twh <= datum.mean_twh ? datum.twh : datum.mean_twh", "as": "below"}
       ],
-      "mark": {"type": "line", "color": "#E84393", "strokeWidth": 1.8},
-      "encoding": {
-        "x": {
-          "field": "date",
-          "type": "temporal",
-          "title": null,
-          "axis": {
-            "labels": false,
-            "ticks": false,
-            "domain": false,
-            "grid": true,
-            "gridColor": "#eee"
+      "layer": [
+        {
+          "mark": {"type": "area", "color": "#E84393", "opacity": 0.35, "interpolate": "linear"},
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal",
+              "title": null,
+              "axis": {
+                "labels": false,
+                "ticks": false,
+                "domain": false,
+                "grid": true,
+                "gridColor": "#eee",
+                "tickCount": {"interval": "year", "step": 1}
+              }
+            },
+            "y": {
+              "field": "above",
+              "type": "quantitative",
+              "scale": {"zero": false},
+              "title": "Nuclear generation (TWh)",
+              "axis": {
+                "grid": false,
+                "titleColor": "#E84393"
+              }
+            },
+            "y2": {"field": "mean_twh"}
           }
         },
-        "y": {
-          "field": "twh",
-          "type": "quantitative",
-          "title": "Generation (TWh)",
-          "scale": {"zero": false},
-          "axis": {"grid": true, "gridColor": "#eee", "titleColor": "#E84393"}
+        {
+          "mark": {"type": "area", "color": "#7ba7bc", "opacity": 0.30, "interpolate": "linear"},
+          "encoding": {
+            "x": {"field": "date", "type": "temporal"},
+            "y": {
+              "field": "below",
+              "type": "quantitative",
+              "scale": {"zero": false}
+            },
+            "y2": {"field": "mean_twh"}
+          }
         },
-        "tooltip": [
-          {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
-          {"field": "twh", "type": "quantitative", "title": "Generation (TWh)", "format": ".1f"}
-        ]
-      }
+        {
+          "mark": {
+            "type": "rule",
+            "color": "#555",
+            "strokeDash": [5, 4],
+            "strokeWidth": 1.2,
+            "opacity": 0.7
+          },
+          "encoding": {
+            "y": {
+              "field": "twh",
+              "type": "quantitative",
+              "aggregate": "mean",
+              "scale": {"zero": false}
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "line",
+            "color": "#E84393",
+            "strokeWidth": 1.4,
+            "opacity": 0.85
+          },
+          "encoding": {
+            "x": {"field": "date", "type": "temporal"},
+            "y": {
+              "field": "twh",
+              "type": "quantitative",
+              "scale": {"zero": false}
+            },
+            "tooltip": [
+              {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
+              {"field": "twh", "type": "quantitative", "title": "Generation (TWh)", "format": ".1f"},
+              {"field": "mean_twh", "type": "quantitative", "title": "Period mean (TWh)", "format": ".1f"}
+            ]
+          }
+        }
+      ]
     },
     {
       "width": 880,
@@ -71,7 +129,7 @@
               "type": "quantitative",
               "title": "Share of world generation (%)",
               "scale": {"zero": false},
-              "axis": {"grid": true, "gridColor": "#eee", "titleColor": "#0072B2"}
+              "axis": {"grid": false, "titleColor": "#0072B2"}
             },
             "tooltip": [
               {"field": "date", "type": "temporal", "title": "Month", "format": "%b %Y"},
