@@ -2,7 +2,7 @@ vegaEmbed("#energy-donut",       "vis/vis-energy-donut.json",       { actions: f
 vegaEmbed("#powerplant-map",    "vis/vis-powerplant-map.json",    { actions: false });
 vegaEmbed("#world-generation",   "vis/vis-world-generation.json",   { actions: false });
 vegaEmbed("#uranium-price",      "vis/vis-uranium-price.json",      { actions: false });
-vegaEmbed("#deaths-lollipop",    "vis/vis-deaths-lollipop.json",    { actions: false });
+vegaEmbed("#safety-emissions",   "vis/vis-safety-emissions.json",   { actions: false });
 vegaEmbed("#nuclear-vs-wind",    "vis/vis-nuclear-vs-wind.json",    { actions: false });
 vegaEmbed("#incidents-timeline", "vis/vis-incidents-timeline.json", { actions: false });
 vegaEmbed("#choropleth",         "vis/vis-choropleth.json",         { actions: false });

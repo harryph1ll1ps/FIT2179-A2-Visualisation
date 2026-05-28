@@ -7,7 +7,7 @@
     {
       "description": "Nuclear badge background",
       "data": { "values": [{}] },
-      "mark": { "type": "rect", "color": "#c0392b", "cornerRadius": 5 },
+      "mark": { "type": "rect", "color": "#e91e8c", "cornerRadius": 5 },
       "encoding": {
         "x": { "value": 28 },
         "x2": { "value": 222 },
@@ -39,7 +39,7 @@
       "encoding": {
         "x": { "value": 125 },
         "y": { "value": 270 },
-        "url": { "value": "assets/nuclear-plant.png" }
+        "url": { "value": "assets/nuclear.png" }
       }
     },
     {
