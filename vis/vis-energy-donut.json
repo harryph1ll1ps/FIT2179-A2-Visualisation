@@ -1,0 +1,106 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 420,
+  "height": 420,
+  "config": {"view": {"stroke": null}},
+  "data": {
+    "url": "data/electricity-prod-source-stacked.filtered/electricity-prod-source-stacked.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"filter": "datum.Entity === 'World'"},
+    {
+      "fold": ["Coal", "Gas", "Oil", "Nuclear", "Hydropower", "Wind", "Solar", "Bioenergy", "Other renewables"],
+      "as": ["category", "value"]
+    },
+    {"calculate": "toNumber(datum.value)", "as": "value_num"},
+    {"joinaggregate": [{"op": "sum", "field": "value_num", "as": "total"}]},
+    {"calculate": "datum.value_num / datum.total * 100", "as": "pct"},
+    {"calculate": "format(datum.pct, '.1f') + '%'", "as": "label"},
+    {"window": [{"op": "sum", "field": "pct", "as": "cumsum"}], "frame": [null, 0]},
+    {"calculate": "(datum.cumsum - datum.pct / 2) / 100 * 2 * PI", "as": "thetaMid"},
+    {"calculate": "210 + 145 * sin(datum.thetaMid)", "as": "labelX"},
+    {"calculate": "210 + 145 * cos(datum.thetaMid)", "as": "labelY"}
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 110,
+        "outerRadius": 180,
+        "padAngle": 0.02,
+        "cornerRadius": 3
+      },
+      "encoding": {
+        "theta": {"field": "pct", "type": "quantitative", "stack": true},
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Coal", "Gas", "Oil", "Nuclear", "Hydropower", "Wind", "Solar", "Bioenergy", "Other renewables"],
+            "range": ["#4a4a4a", "#e67e22", "#a04000", "#2471a3", "#148f77", "#76d7c4", "#f4d03f", "#58d68d", "#a9cce3"]
+          },
+          "legend": {
+            "title": "Energy source",
+            "orient": "right",
+            "symbolType": "circle"
+          }
+        },
+        "tooltip": [
+          {"field": "category", "title": "Source"},
+          {"field": "pct", "title": "Share (%)", "format": ".1f"},
+          {"field": "value_num", "title": "TWh", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "white",
+        "align": "center",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "x": {"field": "labelX", "type": "quantitative", "scale": {"domain": [0, 420]}, "axis": null},
+        "y": {"field": "labelY", "type": "quantitative", "scale": {"domain": [0, 420]}, "axis": null},
+        "text": {
+          "condition": {"test": "datum.pct >= 5", "field": "label", "type": "nominal"},
+          "value": ""
+        }
+      }
+    },
+    {
+      "transform": [{"filter": "datum.category === 'Coal'"}],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 20,
+        "fontWeight": "bold",
+        "color": "#102a43"
+      },
+      "encoding": {
+        "x": {"value": 210},
+        "y": {"value": 195},
+        "text": {"field": "total", "type": "quantitative", "format": ",.0f"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.category === 'Coal'"}],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 11,
+        "color": "#52606d"
+      },
+      "encoding": {
+        "x": {"value": 210},
+        "y": {"value": 222},
+        "text": {"value": "TWh (2025)"}
+      }
+    }
+  ]
+}

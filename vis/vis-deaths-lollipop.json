@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 780,
+  "width": 860,
   "height": 300,
   "data": {
     "url": "data/rates_death_from_energy_production_per_twh.csv",
@@ -21,12 +21,11 @@
       "sort": {"field": "deaths", "order": "descending"},
       "title": null,
       "axis": {"labelFontSize": 13}
-    },
-    "color": {"value": "#111111"}
+    }
   },
   "layer": [
     {
-      "mark": {"type": "rule", "strokeWidth": 2, "opacity": 0.4},
+      "mark": {"type": "rule", "strokeWidth": 2, "opacity": 0.4, "color": "#111111"},
       "encoding": {
         "x": {
           "field": "stem_start",
@@ -39,29 +38,45 @@
       }
     },
     {
-      "mark": {"type": "point", "filled": true, "size": 120},
+      "mark": {"type": "point", "filled": true, "size": 160, "opacity": 1},
       "encoding": {
         "x": {
           "field": "deaths",
           "type": "quantitative",
           "scale": {"type": "log", "domain": [0.01, 50]}
         },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Fossil fuel", "Renewable", "Nuclear"],
+            "range": ["#c0392b", "#27ae60", "#2471a3"]
+          },
+          "legend": {
+            "title": "Category",
+            "orient": "bottom-right",
+            "symbolType": "circle",
+            "symbolSize": 120,
+            "labelFontSize": 12,
+            "titleFontSize": 12
+          }
+        },
         "tooltip": [
           {"field": "Entity", "type": "nominal", "title": "Source"},
-          {"field": "deaths", "type": "quantitative", "title": "Deaths per TWh", "format": ".3f"},
+          {"field": "deaths", "type": "quantitative", "title": "Deaths per TWh", "format": ".2f"},
           {"field": "category", "type": "nominal", "title": "Category"}
         ]
       }
     },
     {
-      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11},
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11, "color": "#111111"},
       "encoding": {
         "x": {
           "field": "deaths",
           "type": "quantitative",
           "scale": {"type": "log", "domain": [0.01, 50]}
         },
-        "text": {"field": "deaths", "format": ".3f"}
+        "text": {"field": "deaths", "format": ".2f"}
       }
     }
   ]

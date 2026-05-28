@@ -1,0 +1,115 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 480,
+  "config": { "view": { "stroke": null } },
+  "layer": [
+    {
+      "description": "Nuclear badge background",
+      "data": { "values": [{}] },
+      "mark": { "type": "rect", "color": "#c0392b", "cornerRadius": 5 },
+      "encoding": {
+        "x": { "value": 28 },
+        "x2": { "value": 222 },
+        "y": { "value": 28 },
+        "y2": { "value": 62 }
+      }
+    },
+    {
+      "description": "Nuclear badge label",
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "white"
+      },
+      "encoding": {
+        "x": { "value": 125 },
+        "y": { "value": 45 },
+        "text": { "value": "1 Nuclear Reactor" }
+      }
+    },
+    {
+      "description": "Single large nuclear plant icon",
+      "data": { "values": [{}] },
+      "mark": { "type": "image", "aspect": true, "width": 130, "height": 130 },
+      "encoding": {
+        "x": { "value": 125 },
+        "y": { "value": 270 },
+        "url": { "value": "assets/nuclear-plant.png" }
+      }
+    },
+    {
+      "description": "Equals sign at canvas centre",
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 30,
+        "fontWeight": "bold",
+        "color": "#9aa5b4"
+      },
+      "encoding": {
+        "x": { "value": 293 },
+        "y": { "value": 270 },
+        "text": { "value": "=" }
+      }
+    },
+    {
+      "description": "Wind badge background",
+      "data": { "values": [{}] },
+      "mark": { "type": "rect", "color": "#2171b5", "cornerRadius": 5 },
+      "encoding": {
+        "x": { "value": 350 },
+        "x2": { "value": 780 },
+        "y": { "value": 28 },
+        "y2": { "value": 62 }
+      }
+    },
+    {
+      "description": "Wind badge label",
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "white"
+      },
+      "encoding": {
+        "x": { "value": 565 },
+        "y": { "value": 45 },
+        "text": { "value": "431 Wind Turbines" }
+      }
+    },
+    {
+      "description": "431 wind turbine icons — 22 cols × 20 rows, 20px spacing",
+      "data": { "sequence": { "start": 0, "stop": 431, "as": "i" } },
+      "transform": [
+        { "calculate": "datum.i % 22", "as": "col" },
+        { "calculate": "floor(datum.i / 22)", "as": "row" }
+      ],
+      "mark": { "type": "image", "aspect": true, "width": 18, "height": 18 },
+      "encoding": {
+        "x": {
+          "field": "col",
+          "type": "quantitative",
+          "scale": { "domain": [0, 21], "range": [360, 780] },
+          "axis": null
+        },
+        "y": {
+          "field": "row",
+          "type": "quantitative",
+          "scale": { "domain": [0, 19], "range": [80, 460] },
+          "axis": null
+        },
+        "url": { "value": "assets/wind-power.png" }
+      }
+    }
+  ]
+}
