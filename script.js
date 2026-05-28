@@ -6,5 +6,5 @@ vegaEmbed("#safety-emissions",   "vis/vis-safety-emissions.json",   { actions: f
 vegaEmbed("#nuclear-vs-wind",    "vis/vis-nuclear-vs-wind.json",    { actions: false });
 vegaEmbed("#incidents-timeline", "vis/vis-incidents-timeline.json", { actions: false });
 vegaEmbed("#choropleth",         "vis/vis-choropleth.json",         { actions: false });
-vegaEmbed("#us-capacity",        "vis/vis-us-capacity.json",        { actions: false });
-vegaEmbed("#capacity-factor",    "vis/vis-capacity-factor.json",    { actions: false });
+vegaEmbed("#france-trade",       "vis/vis-france-trade.json",       { actions: false });
+vegaEmbed("#electricity-mix",    "vis/vis-electricity-mix-heatmap.json", { actions: false });

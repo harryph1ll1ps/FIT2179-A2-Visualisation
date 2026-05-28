@@ -32,13 +32,24 @@
       </p>
     </section>
 
-    <!-- ENERGY SPLIT DONUT -->
+    <!-- ENERGY SPLIT DONUT + HEATMAP -->
     <section class="content-section">
-      <div class="text-block">
-        <h2>How the world generates electricity today</h2>
-        <p>Source: electricity-prod-source-stacked.csv — Our World in Data</p>
+      <div class="two-col">
+        <div>
+          <div class="text-block">
+            <h2>How the world generates electricity today</h2>
+            <p>Source: electricity-prod-source-stacked.csv — Our World in Data</p>
+          </div>
+          <div class="chart-card" id="energy-donut"></div>
+        </div>
+        <div>
+          <div class="text-block">
+            <h2>How Different Countries Generate Their Electricity</h2>
+            <p>Source: Our World in Data — Per-capita electricity by source (2024)</p>
+          </div>
+          <div class="chart-card" id="electricity-mix"></div>
+        </div>
       </div>
-      <div class="chart-card" id="energy-donut"></div>
     </section>
 
     <!-- POWER PLANT MAP -->
@@ -104,24 +115,6 @@
       <div class="chart-card" id="choropleth"></div>
     </section>
 
-    <!-- US CAPACITY -->
-    <section class="content-section">
-      <div class="text-block">
-        <h2>50 Years of US Nuclear — The Build, the Freeze, and the Silence</h2>
-        <p>Source: nuclear_energy_overview_eia.csv — US Energy Information Administration (EIA)</p>
-      </div>
-      <div class="chart-card" id="us-capacity"></div>
-    </section>
-
-    <!-- CAPACITY FACTOR -->
-    <section class="content-section">
-      <div class="text-block">
-        <h2>Getting Better Without Getting Bigger — The Capacity Factor Story</h2>
-        <p>Source: nuclear_energy_overview_eia.csv — US Energy Information Administration (EIA)</p>
-      </div>
-      <div class="chart-card" id="capacity-factor"></div>
-    </section>
-
     <!-- ENERGY STRATEGIES -->
     <section class="content-section">
       <div class="text-block">
@@ -129,6 +122,15 @@
         <p>Source: power_plant_database_global.csv — World Resources Institute (WRI)</p>
       </div>
       <div class="chart-card" id="energy-strategies"></div>
+    </section>
+
+    <!-- FRANCE ELECTRICITY TRADE -->
+    <section class="content-section">
+      <div class="text-block">
+        <h2>France Exports Far More Than It Imports</h2>
+        <p>Source: RTE — Commercial electricity trading between France and neighbouring countries (2025)</p>
+      </div>
+      <div class="chart-card" id="france-trade"></div>
     </section>
 
     <footer class="footer">

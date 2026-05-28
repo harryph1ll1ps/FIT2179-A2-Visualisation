@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 220,
+  "data": { "url": "data/france-electricity-trade.csv" },
+  "transform": [
+    { "calculate": "abs(datum.TWh)", "as": "AbsTWh" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "rule", "color": "#cbd5e1", "strokeWidth": 1 },
+      "encoding": { "x": { "datum": 0 } }
+    },
+    {
+      "mark": { "type": "bar", "cornerRadius": 3 },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "title": null,
+          "sort": ["Italy", "Germany/Belgium", "Great Britain", "Switzerland", "Spain"],
+          "axis": { "labelFontSize": 13 }
+        },
+        "x": {
+          "field": "TWh",
+          "type": "quantitative",
+          "title": "TWh (exports →  ← imports)",
+          "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12,
+            "labelExpr": "abs(datum.value)"
+          }
+        },
+        "color": {
+          "field": "Direction",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Exports", "Imports"],
+            "range": ["#2e86c1", "#7d3c98"]
+          },
+          "legend": {
+            "title": null,
+            "labelFontSize": 12,
+            "orient": "top-right"
+          }
+        },
+        "tooltip": [
+          { "field": "Country", "type": "nominal", "title": "Country" },
+          { "field": "Direction", "type": "nominal", "title": "Direction" },
+          { "field": "AbsTWh", "type": "quantitative", "title": "TWh", "format": ".1f" }
+        ]
+      }
+    }
+  ]
+}

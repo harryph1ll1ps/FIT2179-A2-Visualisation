@@ -100,11 +100,22 @@ p {
   cursor: pointer;
 }
 
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
 .footer {
   border-top: 1px solid #d9e2ec;
 }
 
 @media (max-width: 900px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
   .page-container {
     padding: 0 16px 48px;
   }
