@@ -6,3 +6,4 @@ vegaEmbed("#vis5", "vis/vis5.json", { actions: false });
 vegaEmbed("#vis6",     "vis/vis6.json",     { actions: false });
 vegaEmbed("#vis-choro", "vis/vis_choro.json", { actions: false });
 vegaEmbed("#vis7", "vis/vis7.json", { actions: false });
+vegaEmbed("#vis8", "vis/vis8.json", { actions: false });

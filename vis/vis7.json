@@ -1,8 +1,106 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Nuclear accidents bubble chart (hardcoded IAEA data) — to be built.",
-  "width": "container",
+  "width": 880,
   "height": 300,
-  "data": { "values": [] },
-  "mark": "circle"
+  "data": {
+    "url": "data/nuclear_incidents.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"calculate": "toNumber(datum.year)",     "as": "yr"},
+    {"calculate": "toNumber(datum.severity)", "as": "sev"}
+  ],
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {"level": 4},
+          {"level": 5},
+          {"level": 6},
+          {"level": 7}
+        ]
+      },
+      "mark": {"type": "rule", "strokeDash": [5, 4], "color": "#e0e0e0", "strokeWidth": 1},
+      "encoding": {
+        "y": {
+          "field": "level",
+          "type": "quantitative",
+          "scale": {"domain": [3, 8.5]}
+        }
+      }
+    },
+    {
+      "mark": {"type": "rule", "color": "#222", "strokeWidth": 1.5},
+      "encoding": {
+        "y": {"datum": 3}
+      }
+    },
+    {
+      "mark": {"type": "rule", "color": "#222", "strokeWidth": 1.5, "opacity": 0.6},
+      "encoding": {
+        "x": {
+          "field": "yr",
+          "type": "quantitative",
+          "scale": {"domain": [1950, 2014]},
+          "axis": {
+            "title": null,
+            "format": "d",
+            "tickCount": 8,
+            "grid": false,
+            "labelFontSize": 12
+          }
+        },
+        "y": {
+          "field": "sev",
+          "type": "quantitative",
+          "scale": {"domain": [3, 8.5]},
+          "axis": {
+            "title": "INES Severity Level",
+            "values": [4, 5, 6, 7],
+            "grid": false,
+            "labelFontSize": 12,
+            "titleFontSize": 12,
+            "titlePadding": 10
+          }
+        },
+        "y2": {"datum": 3}
+      }
+    },
+    {
+      "mark": {
+        "type": "image",
+        "url": "assets/Nuclear_symbol.svg.png",
+        "width": 18,
+        "height": 18,
+        "aspect": true
+      },
+      "encoding": {
+        "x": {"field": "yr", "type": "quantitative"},
+        "y": {"field": "sev", "type": "quantitative"},
+        "tooltip": [
+          {"field": "title",   "type": "nominal",      "title": "Incident"},
+          {"field": "yr",      "type": "quantitative", "title": "Year", "format": "d"},
+          {"field": "country", "type": "nominal",      "title": "Country"},
+          {"field": "sev",     "type": "quantitative", "title": "INES Level"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "angle": -45,
+        "align": "left",
+        "fontSize": 10,
+        "color": "#444",
+        "opacity": 0.85,
+        "dx": 8,
+        "dy": -8
+      },
+      "encoding": {
+        "x": {"field": "yr", "type": "quantitative"},
+        "y": {"field": "sev", "type": "quantitative"},
+        "text": {"field": "title"}
+      }
+    }
+  ]
 }

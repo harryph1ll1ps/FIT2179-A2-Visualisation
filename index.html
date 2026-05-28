@@ -76,6 +76,28 @@
       <div class="chart-card" id="vis1"></div>
     </section>
 
+    <!-- VIS 8 — DOT MATRIX (coal vs nuclear) -->
+    <section class="content-section">
+      <div class="text-block">
+        <h2>Coal vs Nuclear — By the Dots</h2>
+        <p>
+          Each dot represents 0.25 deaths per TWh of electricity generated. Coal fills 98 out of 100 — nuclear fills zero. Its death rate of 0.03 per TWh is so low it doesn't even register on the same scale.
+        </p>
+      </div>
+      <div class="chart-card" id="vis8"></div>
+    </section>
+
+    <!-- VIS 7 — TIMELINE -->
+    <section class="content-section">
+      <div class="text-block">
+        <h2>Every Major Nuclear Incident Since 1952</h2>
+        <p>
+          The INES scale rates nuclear events from 1 (anomaly) to 7 (major accident). Only two events have ever reached the maximum — Chernobyl (1986) and Fukushima (2011). Circle size and colour both reflect severity. Hover for details.
+        </p>
+      </div>
+      <div class="chart-card" id="vis7"></div>
+    </section>
+
     <!-- CHOROPLETH — Nuclear capacity by country -->
     <section class="content-section">
       <div class="text-block">
@@ -116,17 +138,6 @@
         </p>
       </div>
       <div class="chart-card" id="vis_stacked"></div>
-    </section>
-
-    <!-- VIS 8 -->
-    <section class="content-section">
-      <div class="text-block">
-        <h2>The Events That Changed History — Nuclear Accidents in Context</h2>
-        <p>
-          PLAN: Dataset — hardcoded inline values (small dataset, ~6 rows) sourced from IAEA public records and Our World in Data. Columns: plant name, country, year, INES severity level (1–7 international nuclear event scale), confirmed direct deaths, and a short description. Key events: Kyshtym Soviet Union 1957 (INES 6, ~200 estimated deaths), Three Mile Island USA 1979 (INES 5, 0 confirmed deaths), Chernobyl Ukraine 1986 (INES 7, 31 direct + ~15 later thyroid cancer deaths), Tokaimura Japan 1999 (INES 4, 2 deaths), Fukushima Japan 2011 (INES 7, 1 confirmed radiation death). Idiom — bubble chart / scatter plot. The x-axis is year, the y-axis is INES severity level (ordinal, 1 at bottom, 7 at top), and the circle size encodes confirmed deaths (with a minimum size so zero-death events are still visible). Colour encodes INES level using a sequential red scheme (darker = more severe). Each bubble is labelled with the plant name. A note explains that INES 7 (the maximum) has only ever been assigned twice — both to Chernobyl and Fukushima — yet their confirmed death tolls are a fraction of what a single year of coal pollution causes. The purpose is to close the loop with vis 1: this is where nuclear's fear comes from, but the data — even at its worst — tells a different story than the headlines suggest.
-        </p>
-      </div>
-      <div class="chart-card" id="vis7"></div>
     </section>
 
     <footer class="footer">
