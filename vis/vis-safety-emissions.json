@@ -1,18 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 720,
-  "height": 480,
+  "width": 420,
+  "height": 380,
   "data": {
-    "values": [
-      {"Entity": "Coal",        "deaths": 24.6, "ghg": 970, "share": 36, "Category": "Fossil fuel"},
-      {"Entity": "Oil",         "deaths": 18.4, "ghg": 720, "share": 3,  "Category": "Fossil fuel"},
-      {"Entity": "Natural Gas", "deaths": 2.8,  "ghg": 440, "share": 22, "Category": "Fossil fuel"},
-      {"Entity": "Biomass",     "deaths": 4.6,  "ghg": 154, "share": 2,  "Category": "Renewable"},
-      {"Entity": "Hydropower",  "deaths": 1.3,  "ghg": 24,  "share": 12, "Category": "Renewable"},
-      {"Entity": "Wind",        "deaths": 0.04, "ghg": 11,  "share": 7,  "Category": "Renewable"},
-      {"Entity": "Nuclear",     "deaths": 0.03, "ghg": 6,   "share": 10, "Category": "Nuclear"},
-      {"Entity": "Solar",       "deaths": 0.02, "ghg": 53,  "share": 4,  "Category": "Renewable"}
-    ]
+    "url": "data/death-rates-by-energy-source.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"deaths": "number", "ghg": "number", "share": "number"}
+    }
   },
   "encoding": {
     "x": {
@@ -34,14 +29,14 @@
           "field": "Category", "type": "nominal",
           "scale": {
             "domain": ["Fossil fuel", "Renewable", "Nuclear"],
-            "range": ["#c0392b", "#27ae60", "#2471a3"]
+            "range": ["#5a5a5a", "#2c7fb8", "#e8336d"]
           },
-          "legend": {"title": "Category", "orient": "right", "symbolSize": 100, "labelFontSize": 12, "titleFontSize": 12}
+          "legend": {"title": "Category", "orient": "bottom", "symbolSize": 100, "labelFontSize": 12, "titleFontSize": 12}
         },
         "size": {
           "field": "share", "type": "quantitative",
           "scale": {"range": [50, 650]},
-          "legend": {"title": "Electricity share (%)", "orient": "right", "values": [3, 10, 22, 36], "labelFontSize": 11, "titleFontSize": 11}
+          "legend": {"title": "Electricity share (%)", "orient": "bottom", "values": [3, 10, 22, 36], "labelFontSize": 11, "titleFontSize": 11}
         },
         "tooltip": [
           {"field": "Entity", "title": "Source"},

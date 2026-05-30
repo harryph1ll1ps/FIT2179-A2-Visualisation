@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 900,
-  "height": 460,
+  "width": 880,
+  "height": 470,
   "config": {"view": {"stroke": null}},
   "projection": {"type": "naturalEarth1"},
   "layer": [
@@ -73,7 +73,7 @@
           "lookup": "code",
           "from": {
             "data": {
-              "url": "data/share-electricity-nuclear.filtered/share-electricity-nuclear.csv",
+              "url": "data/share-electricity-nuclear.csv",
               "format": {"type": "csv"}
             },
             "key": "Code",
@@ -90,7 +90,7 @@
           "type": "quantitative",
           "scale": {
             "type": "sqrt",
-            "scheme": "reds",
+            "range": ["#fce4ef", "#f59ac4", "#e8336d", "#9d1f4f"],
             "domain": [0, 70]
           },
           "legend": {

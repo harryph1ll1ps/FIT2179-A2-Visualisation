@@ -1,136 +1,308 @@
+/* ============================================================
+   Nuclear — "The World's Most Controversial Energy Source"
+   Deep-space atomic theme, palette sampled from the hero atom:
+   electric blue + violet + magenta core + warm amber orbital streaks
+   on a deep indigo / near-black field.
+   ============================================================ */
+
+:root {
+  /* dark field */
+  --bg-0: #070912;
+  --bg-1: #0c1124;
+
+  /* light surfaces (chart cards) */
+  --surface: #ffffff;
+  --surface-tint: #f4f6fd;
+  --line: #e4e8f5;
+
+  /* ink (dark text on light cards) */
+  --ink: #16203a;
+  --ink-soft: #5a6485;
+
+  /* starlight (light text on the dark field) */
+  --star: #eef1fb;
+  --star-soft: #a6b0d0;
+
+  /* accents from the atom */
+  --blue: #4d9fff;
+  --cyan: #56d4f0;
+  --violet: #9b6bff;
+  --purple: #7c5cff;
+  --magenta: #ff5fb0;
+  --amber: #f2a65a;
+
+  /* glows */
+  --glow-cool: rgba(90, 130, 255, 0.30);
+  --glow-violet: rgba(124, 92, 255, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: #1f2933;
-  background: #f7f8fa;
+  line-height: 1.65;
+  color: var(--star);
+  background: var(--bg-0);
+  position: relative;
+}
+
+/* fixed atom backdrop — blurred + dimmed so the watermark disappears
+   and the low-res image reads as a soft glow behind the page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("assets/atom-bg.jpg") center top / cover no-repeat;
+  filter: blur(2px) saturate(1.18);
+  transform: scale(1.06);
+  opacity: 0.72;
+  z-index: -2;
+}
+
+/* darkening + cool vignette + a violet glow up top */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(130% 70% at 50% -5%, rgba(124, 92, 255, 0.20), transparent 55%),
+    radial-gradient(120% 90% at 50% 100%, rgba(77, 159, 255, 0.08), transparent 60%),
+    linear-gradient(180deg, rgba(7, 9, 18, 0.36) 0%, rgba(7, 9, 18, 0.62) 55%, rgba(7, 9, 18, 0.80) 100%);
+  z-index: -1;
 }
 
 .page-container {
-  max-width: 960px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
 }
 
-.hero,
-.content-section,
-.footer {
-  padding: 56px 0;
-}
+/* ---------------------------------------------------------- HERO */
 
 .hero {
   text-align: center;
+  padding: 120px 0 84px;
 }
 
 .eyebrow {
-  margin: 0 0 8px;
-  font-size: 0.95rem;
+  margin: 0 0 16px;
+  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #52606d;
-}
-
-h1,
-h2 {
-  line-height: 1.2;
-  margin-top: 0;
-  color: #102a43;
+  color: var(--cyan);
 }
 
 h1 {
-  font-size: 2.4rem;
-  margin-bottom: 16px;
-}
-
-h2 {
-  font-size: 1.6rem;
-  margin-bottom: 12px;
-}
-
-p {
-  margin: 0 0 16px;
+  line-height: 1.1;
+  margin: 0 0 22px;
+  font-size: 3.1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(100deg, #cfe0ff 0%, #b89bff 42%, #ff8fd0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 30px rgba(124, 92, 255, 0.45));
 }
 
 .lead {
   max-width: 720px;
-  margin: 0 auto 16px;
-  font-size: 1.1rem;
+  margin: 0 auto 22px;
+  font-size: 1.18rem;
+  color: var(--star);
+}
+
+.hero .meta {
+  color: var(--star-soft);
 }
 
 .meta {
-  color: #52606d;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
-.content-section {
-  border-top: 1px solid #d9e2ec;
+/* ------------------------------------------------ CONTENT CARDS */
+
+.content-section,
+.footer {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid rgba(120, 140, 255, 0.10);
+  border-radius: 18px;
+  padding: 44px 48px;
+  margin-bottom: 36px;
+  box-shadow:
+    0 24px 60px -28px rgba(2, 6, 28, 0.85),
+    0 0 0 1px rgba(120, 140, 255, 0.04);
+}
+
+h2 {
+  line-height: 1.2;
+  margin: 0 0 14px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* short accent rule under section headings */
+h2::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--violet) 60%, var(--magenta));
+}
+
+p {
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(77, 159, 255, 0.35);
+}
+
+a:hover {
+  border-bottom-color: var(--blue);
+}
+
+.content-section .meta,
+.footer .meta {
+  color: var(--ink-soft);
 }
 
 .text-block {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
-.chart-card {
-  background: #ffffff;
-  border: 1px solid #d9e2ec;
-  border-radius: 8px;
-  padding: 16px;
-  overflow-x: auto;
-  min-height: 100px;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+.text-block p {
+  color: var(--ink-soft);
 }
+
+/* the "source" line under a heading */
+.text-block p:last-child {
+  font-size: 0.9rem;
+}
+
+/* ---------------------------------------------------- CHART CARD */
+
+.chart-card {
+  background: var(--surface-tint);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  overflow: hidden;
+  min-height: 100px;
+  text-align: center;
+}
+
+/* charts use width:"container" so they size to this; full-width block lets
+   Vega measure the card. svg/canvas cap is a backstop for fixed-size specs. */
+.chart-card .vega-embed {
+  width: 100%;
+}
+
+.chart-card .vega-embed svg,
+.chart-card .vega-embed canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------- VIS CONTROLS */
 
 .vis-controls {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-  color: #52606d;
+  margin-bottom: 12px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
 }
 
 .vis-controls select {
-  padding: 5px 10px;
-  border: 1px solid #d9e2ec;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
   font-family: inherit;
   font-size: 0.9rem;
   background: #fff;
+  color: var(--ink);
   cursor: pointer;
+}
+
+/* ----------------------------------------------------- LAYOUT */
+
+/* text on one side, chart on the other — used for all non-map charts */
+.split {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.split .text-block {
+  margin-bottom: 0;
+}
+
+.split .chart-card {
+  margin: 0;
 }
 
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 28px;
   align-items: start;
 }
 
+/* ----------------------------------------------------- FOOTER */
+
 .footer {
-  border-top: 1px solid #d9e2ec;
+  text-align: left;
 }
 
-@media (max-width: 900px) {
+/* ----------------------------------------------------- MOBILE */
+
+@media (max-width: 880px) {
+  .split,
   .two-col {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .split .text-block {
+    margin-bottom: 4px;
   }
 
   .page-container {
-    padding: 0 16px 48px;
+    padding: 0 16px 56px;
   }
 
-  .hero,
-  .content-section,
-  .footer {
-    padding: 44px 0;
+  .hero {
+    padding: 84px 0 60px;
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   h2 {
     font-size: 1.4rem;
+  }
+
+  .content-section,
+  .footer {
+    padding: 32px 24px;
   }
 }

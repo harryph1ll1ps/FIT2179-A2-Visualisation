@@ -1,9 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 880,
+  "width": 480,
   "height": 300,
   "data": {
-    "url": "data/nuclear_incidents.csv",
+    "url": "data/nuclear-incidents.csv",
     "format": {"type": "csv"}
   },
   "transform": [

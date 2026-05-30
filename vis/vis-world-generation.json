@@ -3,10 +3,10 @@
   "spacing": 8,
   "vconcat": [
     {
-      "width": 880,
-      "height": 160,
+      "width": 460,
+      "height": 120,
       "data": {
-        "url": "data/world_electricity_generation.csv",
+        "url": "data/world-electricity-generation.csv",
         "format": {"type": "csv"}
       },
       "transform": [
@@ -99,10 +99,10 @@
       ]
     },
     {
-      "width": 880,
-      "height": 160,
+      "width": 460,
+      "height": 120,
       "data": {
-        "url": "data/world_electricity_generation.csv",
+        "url": "data/world-electricity-generation.csv",
         "format": {"type": "csv"}
       },
       "transform": [

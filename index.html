@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-  <link rel="stylesheet" href="style.css?v=20260526">
+  <link rel="stylesheet" href="style.css?v=20260530-8">
 </head>
 <body>
   <main class="page-container">
@@ -32,66 +32,106 @@
       </p>
     </section>
 
-    <!-- ENERGY SPLIT DONUT + HEATMAP -->
+    <!-- ELECTRICITY MIX TREND (100% STACKED BARS) -->
     <section class="content-section">
-      <div class="two-col">
-        <div>
-          <div class="text-block">
-            <h2>How the world generates electricity today</h2>
-            <p>Source: electricity-prod-source-stacked.csv — Our World in Data</p>
-          </div>
-          <div class="chart-card" id="energy-donut"></div>
+      <div class="split">
+        <div class="text-block">
+          <h2>How the world's electricity mix has shifted, 2000–2025</h2>
+          <p>
+            Each bar shows the share of global electricity from fossil fuels, nuclear, and renewables.
+            Over 25 years renewables have nearly doubled — from 19% to 34% — while
+            <strong>nuclear has quietly slipped from 17% to under 9%</strong>. Fossil fuels still supply the majority.
+          </p>
+          <p>Source: Our World in Data / Ember (2026) — Share of electricity generation</p>
         </div>
-        <div>
-          <div class="text-block">
-            <h2>How Different Countries Generate Their Electricity</h2>
-            <p>Source: Our World in Data — Per-capita electricity by source (2024)</p>
-          </div>
-          <div class="chart-card" id="electricity-mix"></div>
-        </div>
+        <div class="chart-card" id="energy-trend"></div>
       </div>
     </section>
 
-    <!-- POWER PLANT MAP -->
+    <!-- ELECTRICITY MIX HEATMAP -->
+    <section class="content-section">
+      <div class="split">
+        <div class="text-block">
+          <h2>How different countries generate their electricity</h2>
+          <p>
+            Each row is a country and each column an energy source — the darker the cell, the larger the share.
+            The contrast is stark: <strong>Australia still draws roughly two-thirds of its power from fossil fuels and nothing from nuclear</strong>,
+            while France and Sweden run almost entirely on low-carbon nuclear and renewables.
+          </p>
+          <p>Source: Our World in Data — Electricity mix (2025)</p>
+        </div>
+        <div class="chart-card" id="electricity-mix"></div>
+      </div>
+    </section>
+
+    <!-- POWER PLANT MAP (full width) -->
     <section class="content-section">
       <div class="text-block">
         <h2>Where are the power plants?</h2>
-        <p>Source: power_plant_database_global.csv — World Resources Institute (WRI)</p>
+        <p>
+          Every grid-scale generating station on Earth, coloured by fuel. Fossil-fuel plants blanket the map,
+          while the relatively few pink nuclear stations cluster in North America, Europe and East Asia.
+        </p>
+        <p>Source: global-power-plant-database.csv — World Resources Institute (WRI)</p>
       </div>
       <div class="chart-card" id="powerplant-map"></div>
     </section>
 
     <!-- WORLD GENERATION -->
     <section class="content-section">
-      <div class="text-block">
-        <h2>Global Nuclear Generation (Monthly)</h2>
-        <p>Source: world_electricity_generation.csv — Nuclear Energy Institute (NEI)</p>
+      <div class="split">
+        <div class="text-block">
+          <h2>Global nuclear generation, month by month</h2>
+          <p>
+            The world's reactors put out a fairly steady ~220 TWh of electricity every month. But nuclear's
+            <strong>share of global generation has slipped — from about 11% in 2019 to roughly 9%</strong> —
+            as total demand and renewables grow faster than the nuclear fleet.
+          </p>
+          <p>Source: world-electricity-generation.csv — Nuclear Energy Institute (NEI)</p>
+        </div>
+        <div class="chart-card" id="world-generation"></div>
       </div>
-      <div class="chart-card" id="world-generation"></div>
     </section>
 
     <!-- URANIUM PRICE -->
     <section class="content-section">
-      <div class="text-block">
-        <h2>The Price of Uranium — Boom, Bust, and Renaissance</h2>
-        <p>Source: uranium_purchase_price_us.csv — US Energy Information Administration (EIA)</p>
+      <div class="split">
+        <div class="text-block">
+          <h2>The price of uranium — boom, bust, and renaissance</h2>
+          <p>
+            Uranium fuel sat near US$10 per pound through the early 2000s, spiked as demand surged, then slumped
+            after the 2011 Fukushima accident chilled the industry. Prices have <strong>climbed sharply again in
+            the 2020s</strong> as nuclear returns to favour.
+          </p>
+          <p>Source: uranium-purchase-price-us.csv — US Energy Information Administration (EIA)</p>
+        </div>
+        <div class="chart-card" id="uranium-price"></div>
       </div>
-      <div class="chart-card" id="uranium-price"></div>
     </section>
 
     <!-- SAFETY VS EMISSIONS SCATTER -->
     <section class="content-section">
-      <div class="text-block">
-        <h2>Safe and Clean — or Neither?</h2>
-        <p>Source: rates_death_from_energy_production_per_twh.csv — Our World in Data</p>
+      <div class="split">
+        <div class="text-block">
+          <h2>Safe and clean — or neither?</h2>
+          <p>
+            Plotting deaths against emissions per unit of electricity, <strong>nuclear lands in the safest, cleanest
+            corner</strong> — alongside wind and solar, and far below coal, oil and gas on both measures. Bubble size
+            shows each source's share of world electricity.
+          </p>
+          <p>Source: death-rates-by-energy-source.csv — Our World in Data</p>
+        </div>
+        <div class="chart-card" id="safety-emissions"></div>
       </div>
-      <div class="chart-card" id="safety-emissions"></div>
     </section>
 
-    <!-- NUCLEAR VS WIND POWER DENSITY -->
+    <!-- NUCLEAR VS WIND POWER DENSITY (full width) -->
     <section class="content-section">
       <div class="text-block">
-        <h2>One Reactor. A Thousand Turbines Worth of Power.</h2>
+        <h2>One reactor. A thousand turbines worth of power.</h2>
+        <p>
+          Energy density in perspective: a single nuclear reactor matches the annual output of hundreds of wind turbines.
+        </p>
         <p>Source: Our World in Data (ourworldindata.org/nuclear-energy)</p>
       </div>
       <div class="chart-card" id="nuclear-vs-wind"></div>
@@ -99,38 +139,46 @@
 
     <!-- INCIDENTS TIMELINE -->
     <section class="content-section">
-      <div class="text-block">
-        <h2>Every Major Nuclear Incident Since 1952</h2>
-        <p>Source: nuclear_incidents.csv — International Atomic Energy Agency (IAEA)</p>
+      <div class="split">
+        <div class="text-block">
+          <h2>Every major nuclear incident since 1952</h2>
+          <p>
+            In seven decades of nuclear power, only two events have ever reached Level 7 — the top of the international
+            severity scale: <strong>Chernobyl in 1986 and Fukushima in 2011</strong>. Every other rated incident sits
+            well below them.
+          </p>
+          <p>Source: nuclear-incidents.csv — International Atomic Energy Agency (IAEA)</p>
+        </div>
+        <div class="chart-card" id="incidents-timeline"></div>
       </div>
-      <div class="chart-card" id="incidents-timeline"></div>
     </section>
 
-    <!-- CHOROPLETH -->
+    <!-- CHOROPLETH (full width) -->
     <section class="content-section">
       <div class="text-block">
         <h2>Some countries are leaning into nuclear, others wait</h2>
+        <p>
+          Nuclear's share of national electricity, country by country. A handful of nations — led by France —
+          lean heavily on it (deep pink), while most of the world generates little or none.
+        </p>
         <p>Source: share-electricity-nuclear.csv — Our World in Data</p>
       </div>
       <div class="chart-card" id="choropleth"></div>
     </section>
 
-    <!-- ENERGY STRATEGIES -->
-    <section class="content-section">
-      <div class="text-block">
-        <h2>Energy Strategies Compared — Which Countries Chose Nuclear?</h2>
-        <p>Source: power_plant_database_global.csv — World Resources Institute (WRI)</p>
-      </div>
-      <div class="chart-card" id="energy-strategies"></div>
-    </section>
-
     <!-- FRANCE ELECTRICITY TRADE -->
     <section class="content-section">
-      <div class="text-block">
-        <h2>France Exports Far More Than It Imports</h2>
-        <p>Source: RTE — Commercial electricity trading between France and neighbouring countries (2025)</p>
+      <div class="split">
+        <div class="text-block">
+          <h2>France exports far more than it imports</h2>
+          <p>
+            France generates far more electricity than it consumes and sells the surplus to its neighbours — a direct
+            dividend of <strong>the world's most nuclear-heavy grid</strong>. It exports several times more than it imports.
+          </p>
+          <p>Source: RTE — Commercial electricity trading between France and neighbouring countries (2025)</p>
+        </div>
+        <div class="chart-card" id="france-trade"></div>
       </div>
-      <div class="chart-card" id="france-trade"></div>
     </section>
 
     <footer class="footer">
@@ -144,6 +192,6 @@
     </footer>
   </main>
 
-  <script src="script.js?v=20260526"></script>
+  <script src="script.js?v=20260530-8"></script>
 </body>
 </html>

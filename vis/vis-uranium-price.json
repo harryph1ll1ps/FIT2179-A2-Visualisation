@@ -1,9 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 880,
-  "height": 320,
+  "width": 460,
+  "height": 300,
   "data": {
-    "url": "data/uranium_purchase_price_us.csv",
+    "url": "data/uranium-purchase-price-us.csv",
     "format": {"type": "csv"}
   },
   "transform": [

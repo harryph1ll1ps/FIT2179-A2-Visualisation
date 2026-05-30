@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 460,
+  "height": 360,
+  "background": null,
+  "data": {
+    "url": "data/electricity-fossil-renewables-nuclear-line.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "fold": ["Fossil fuels", "Nuclear", "Renewables"],
+      "as": ["Source", "Share"]
+    },
+    {"calculate": "toNumber(datum.Share)", "as": "ShareNum"},
+    {
+      "calculate": "datum.Source === 'Fossil fuels' ? 0 : (datum.Source === 'Nuclear' ? 1 : 2)",
+      "as": "stackOrder"
+    }
+  ],
+  "mark": {"type": "bar", "width": {"band": 0.82}},
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": -45,
+        "labelFontSize": 11,
+        "labelColor": "#52606d",
+        "ticks": false,
+        "domain": false
+      }
+    },
+    "y": {
+      "field": "ShareNum",
+      "type": "quantitative",
+      "stack": "normalize",
+      "title": "Share of world electricity generation",
+      "axis": {
+        "format": ".0%",
+        "values": [0, 0.25, 0.5, 0.75, 1.0],
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "titleColor": "#52606d",
+        "labelColor": "#52606d",
+        "grid": true,
+        "gridColor": "#eef1f6",
+        "domain": false,
+        "ticks": false
+      }
+    },
+    "order": {"field": "stackOrder", "type": "quantitative"},
+    "color": {
+      "field": "Source",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Fossil fuels", "Nuclear", "Renewables"],
+        "range": ["#5a5a5a", "#e8336d", "#2c7fb8"]
+      },
+      "legend": {
+        "title": null,
+        "orient": "top",
+        "symbolType": "square",
+        "labelFontSize": 13,
+        "offset": 6
+      }
+    },
+    "tooltip": [
+      {"field": "Year", "type": "ordinal", "title": "Year"},
+      {"field": "Source", "type": "nominal", "title": "Source"},
+      {"field": "ShareNum", "type": "quantitative", "title": "Share of electricity", "format": ".1f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "font": "Segoe UI, Tahoma, sans-serif"
+  }
+}

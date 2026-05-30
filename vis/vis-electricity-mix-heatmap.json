@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": { "step": 120 },
-  "height": { "step": 45 },
+  "width": { "step": 66 },
+  "height": { "step": 30 },
   "data": { "url": "data/electricity-mix-pct.csv" },
   "transform": [
     { "filter": "datum.Entity !== 'World'" },

@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
+  "width": 440,
   "height": 220,
   "data": { "url": "data/france-electricity-trade.csv" },
   "transform": [

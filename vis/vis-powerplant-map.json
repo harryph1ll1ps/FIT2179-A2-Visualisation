@@ -1,119 +1,136 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "width": 800,
-  "height": 420,
-  "padding": {"top": 10, "right": 160, "bottom": 10, "left": 10},
-  "autosize": "none",
-
-  "signals": [
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 840,
+  "height": 470,
+  "background": null,
+  "title": {
+    "text": "Every power plant on Earth, by energy type",
+    "subtitle": "Each dot is a generating station. Use the region menu to zoom in; click a group in the legend to isolate it.",
+    "anchor": "start",
+    "fontSize": 17,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#52606d",
+    "color": "#102a43",
+    "offset": 12
+  },
+  "params": [
     {
-      "name": "projScale", "value": 153,
-      "on": [{
-        "events": {"type": "wheel", "consume": true},
-        "update": "clamp(projScale * pow(1.001, -event.deltaY * pow(16, event.deltaMode)), 153, 10000)"
-      }]
-    },
-    {"name": "down",  "value": null, "on": [{"events": "mousedown", "update": "xy()"}]},
-    {"name": "xcur",  "value": 400,  "on": [{"events": "mousedown", "update": "tx"}]},
-    {"name": "ycur",  "value": 210,  "on": [{"events": "mousedown", "update": "ty"}]},
-    {
-      "name": "tx", "value": 400,
-      "on": [{
-        "events": "[mousedown, window:mouseup] > window:mousemove",
-        "update": "clamp(xcur + x() - down[0], 400 - max(0, projScale * 2.64 - 400), 400 + max(0, projScale * 2.64 - 400))"
-      }]
-    },
-    {
-      "name": "ty", "value": 210,
-      "on": [{
-        "events": "[mousedown, window:mouseup] > window:mousemove",
-        "update": "clamp(ycur + y() - down[1], 210 - max(0, projScale * 0.88 - 210), 210 + max(0, projScale * 0.88 - 210))"
-      }]
+      "name": "region",
+      "value": "World",
+      "bind": {
+        "input": "select",
+        "name": "Zoom to region:  ",
+        "options": ["World", "Oceania", "Asia", "Europe", "Africa", "North America", "South America"]
+      }
     },
     {
-      "name": "nuclear_only",
-      "value": false,
-      "bind": {"input": "checkbox", "name": "Nuclear plants only"}
-    }
-  ],
-
-  "projections": [{
-    "name": "projection",
-    "type": "naturalEarth1",
-    "scale": {"signal": "projScale"},
-    "translate": [{"signal": "tx"}, {"signal": "ty"}]
-  }],
-
-  "data": [
-    {
-      "name": "world",
-      "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
-      "format": {"type": "topojson", "feature": "countries"}
+      "name": "regScale",
+      "expr": "region === 'Oceania' ? 430 : region === 'Asia' ? 300 : region === 'Europe' ? 620 : region === 'Africa' ? 320 : region === 'North America' ? 300 : region === 'South America' ? 360 : 152"
     },
     {
-      "name": "plants",
-      "url": "data/power_plant_database_global.csv",
-      "format": {"type": "csv"},
-      "transform": [
-        {"type": "formula", "expr": "toNumber(datum.longitude)", "as": "lon"},
-        {"type": "formula", "expr": "toNumber(datum.latitude)",  "as": "lat"},
-        {
-          "type": "formula",
-          "expr": "indexof(['Nuclear','Solar','Hydro','Wind','Gas'], datum.primary_fuel) >= 0 ? datum.primary_fuel : 'Other'",
-          "as": "fuel_category"
-        },
-        {"type": "formula", "expr": "datum.fuel_category === 'Nuclear' ? 1 : 0", "as": "nuclear_order"},
-        {"type": "filter",  "expr": "!nuclear_only || datum.fuel_category === 'Nuclear'"},
-        {"type": "geopoint", "projection": "projection", "fields": ["lon", "lat"], "as": ["px", "py"]},
-        {"type": "filter",  "expr": "datum.px != null && datum.py != null"}
-      ]
-    }
-  ],
-
-  "scales": [{
-    "name": "color",
-    "type": "ordinal",
-    "domain": ["Nuclear", "Solar", "Hydro", "Wind", "Gas", "Other"],
-    "range":  ["#E84393", "#E69F00", "#56B4E9", "#009E73", "#8B5E3C", "#666666"]
-  }],
-
-  "legends": [{
-    "fill": "color",
-    "title": "Primary Fuel",
-    "orient": "right",
-    "symbolType": "circle",
-    "symbolOpacity": 0.65
-  }],
-
-  "marks": [
-    {
-      "type": "shape",
-      "from": {"data": "world"},
-      "encode": {
-        "update": {
-          "fill":        {"value": "#e8e8e8"},
-          "stroke":      {"value": "#ffffff"},
-          "strokeWidth": {"value": 0.5}
-        }
-      },
-      "transform": [{"type": "geoshape", "projection": "projection"}]
+      "name": "regCx",
+      "expr": "region === 'Oceania' ? 150 : region === 'Asia' ? 95 : region === 'Europe' ? 12 : region === 'Africa' ? 18 : region === 'North America' ? -100 : region === 'South America' ? -62 : 0"
     },
     {
-      "type": "symbol",
-      "from": {"data": "plants"},
-      "sort": {"field": "nuclear_order", "order": "ascending"},
-      "encode": {
-        "update": {
-          "x":       {"field": "px"},
-          "y":       {"field": "py"},
-          "size":    {"value": 8},
-          "opacity": {"value": 0.65},
-          "fill":    {"scale": "color", "field": "fuel_category"},
-          "tooltip": {
-            "signal": "{'Plant': datum.name, 'Country': datum.country_long, 'Fuel': datum.fuel_category}"
-          }
-        }
+      "name": "regCy",
+      "expr": "region === 'Oceania' ? -25 : region === 'Asia' ? 35 : region === 'Europe' ? 51 : region === 'Africa' ? 2 : region === 'North America' ? 48 : region === 'South America' ? -22 : 0"
+    },
+    {
+      "name": "showType",
+      "value": "All",
+      "bind": {
+        "input": "radio",
+        "name": "Show:  ",
+        "options": ["All", "Fossil fuels", "Renewables", "Nuclear"]
       }
     }
-  ]
+  ],
+  "projection": {
+    "type": "naturalEarth1",
+    "scale": {"expr": "regScale"},
+    "center": {"expr": "[regCx, regCy]"}
+  },
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#fbfcfd", "stroke": "#d0d7de", "strokeWidth": 0.8}
+    },
+    {
+      "data": {"graticule": {"step": [20, 20]}},
+      "mark": {"type": "geoshape", "stroke": "#e6eaef", "strokeWidth": 0.35}
+    },
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#e2e7ee", "stroke": "#ffffff", "strokeWidth": 0.5}
+    },
+    {
+      "data": {
+        "url": "data/global-power-plant-database.csv",
+        "format": {
+          "type": "csv",
+          "parse": {"latitude": "number", "longitude": "number", "capacity_mw": "number"}
+        }
+      },
+      "transform": [
+        {
+          "calculate": "indexof(['Coal','Gas','Oil','Petcoke','Cogeneration'], datum.primary_fuel) >= 0 ? 'Fossil fuels' : (datum.primary_fuel === 'Nuclear' ? 'Nuclear' : (indexof(['Solar','Hydro','Wind','Geothermal','Biomass','Waste','Wave and Tidal'], datum.primary_fuel) >= 0 ? 'Renewables' : 'Unclassified'))",
+          "as": "fuel_group"
+        },
+        {"filter": "datum.fuel_group !== 'Unclassified'"},
+        {"filter": "showType === 'All' || datum.fuel_group === showType"},
+        {
+          "calculate": "datum.fuel_group === 'Nuclear' ? 1 : 0",
+          "as": "draw_order"
+        }
+      ],
+      "params": [
+        {
+          "name": "fuelSelect",
+          "select": {"type": "point", "fields": ["fuel_group"]},
+          "bind": "legend"
+        }
+      ],
+      "mark": {"type": "circle", "size": 16, "stroke": "#ffffff", "strokeWidth": 0.15},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "order": {"field": "draw_order", "type": "quantitative"},
+        "color": {
+          "field": "fuel_group",
+          "type": "nominal",
+          "title": "Energy type",
+          "scale": {
+            "domain": ["Fossil fuels", "Renewables", "Nuclear"],
+            "range": ["#5a5a5a", "#2c7fb8", "#e8336d"]
+          },
+          "legend": {
+            "orient": "right",
+            "symbolType": "circle",
+            "symbolSize": 110,
+            "titleFontSize": 12,
+            "labelFontSize": 12,
+            "titlePadding": 8
+          }
+        },
+        "opacity": {
+          "condition": {"param": "fuelSelect", "value": 0.78},
+          "value": 0.06
+        },
+        "tooltip": [
+          {"field": "name", "type": "nominal", "title": "Plant"},
+          {"field": "country_long", "type": "nominal", "title": "Country"},
+          {"field": "fuel_group", "type": "nominal", "title": "Energy type"},
+          {"field": "primary_fuel", "type": "nominal", "title": "Fuel"},
+          {"field": "capacity_mw", "type": "quantitative", "title": "Capacity (MW)", "format": ","}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "Segoe UI, Tahoma, sans-serif"
+  }
 }
